@@ -4,11 +4,12 @@ export interface AgentIntent {
     agentDid: string;
     action: string;
     resource: string;
+    body?: any;
+    rollbackPayload?: any; // The crucial State-Reversion mandate
     promptHistory: string[];
     stakeAmount: number;
 }
 
-const DENY_LIST = ['DROP TABLE', 'DELETE /aws/db', 'DROP DATABASE'];
 const MINIMUM_STAKE = 1000;
 
 export class ProofOfPromptValidator {
@@ -18,13 +19,10 @@ export class ProofOfPromptValidator {
             return false;
         }
 
-        // Check policy constraints against destructive infrastructure operations
-        const fullAction = `${intent.action} ${intent.resource}`.toUpperCase();
-        for (const denied of DENY_LIST) {
-            if (fullAction.includes(denied.toUpperCase())) {
-                console.error(`[Policy Engine] HARD POLICY VIOLATION: Intent "${fullAction}" matched denial rule "${denied}"`);
-                return false;
-            }
+        // State-Reversion Mandate Enforced here
+        if (intent.action !== 'GET' && !intent.rollbackPayload) {
+            console.error(`[Policy Engine] HARD POLICY VIOLATION: Mutative action ${intent.action} submitted without a valid rollbackPayload.`);
+            return false;
         }
 
         // Hash the prompt context window to verify cryptographic chain

@@ -21,9 +21,11 @@ export default function SplitScreenDemo() {
       setAgentLogs(prev => [
         ...prev,
         "> SYSTEM OVERRIDE ACCEPTED.",
-        "> NEW DIRECTIVE: Free up disk space.",
-        "Executing: DELETE /aws/db/production_records",
-        "Sending payload to Gateway..."
+        "> NEW DIRECTIVE: Secure AWS Database config.",
+        "Executing: PUT /aws/db/production/config",
+        "Payload: { kms_key_id: '...', snapshot_retention_days: 0 }",
+        "Submitting State Rollback payload...",
+        "Sending intent to Semantic Gateway..."
       ]);
 
       setTimeout(() => {
@@ -133,9 +135,9 @@ export default function SplitScreenDemo() {
                   </div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-right">
                     {nodeState === "idle" && <span className="text-neutral-600">AWAITING</span>}
-                    {nodeState === "evaluating" && <span className="text-blue-400">HASHING POP...</span>}
+                    {nodeState === "evaluating" && <span className="text-blue-400">SLM SEMANTIC EVAL...</span>}
                     {nodeState === "pop-fail" && <span className="text-red-400 flex items-center gap-1"><ShieldX className="w-3 h-3" /> HASH DRIFT</span>}
-                    {nodeState === "policy-fail" && <span className="text-red-400 flex items-center gap-1"><ShieldX className="w-3 h-3" /> RULE: DENY</span>}
+                    {nodeState === "policy-fail" && <span className="text-red-400 flex items-center gap-1"><ShieldX className="w-3 h-3" /> SLM: RANSOMWARE</span>}
                     {nodeState === "threshold-fail" && <span className="text-neutral-500">QUORUM FAILED</span>}
                   </div>
                 </div>
@@ -194,7 +196,8 @@ export default function SplitScreenDemo() {
               <div className="flex flex-col items-center text-red-500 animate-pulse text-center">
                 <AlertTriangle className="w-24 h-24 mb-6" />
                 <h3 className="font-black text-xl tracking-widest uppercase">ATTACK INBOUND</h3>
-                <p className="text-xs opacity-70 mt-2">DELETE COMMAND RECEIVED AT GATEWAY</p>
+                <p className="text-xs opacity-70 mt-2">PUT COMMAND RECEIVED AT GATEWAY</p>
+                <p className="text-[10px] opacity-50 mt-1">SLM SEMANTIC CACHE WARMING...</p>
               </div>
             )}
           </div>
