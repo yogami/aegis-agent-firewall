@@ -97,15 +97,17 @@ export class VirtualGuardian {
         this.publicKey = bls12_381.getPublicKey ? bls12_381.getPublicKey(this.keyShard) : bls12_381.shortSignatures.getPublicKey(this.keyShard);
     }
 
-    async evaluatePayload(payload, signal) {
+    async evaluatePayload(payload, signal, requestHeaders) {
         const rawPayloadString = JSON.stringify(payload) || 'None';
-        const payloadHash = crypto.createHash('sha256').update(rawPayloadString).digest('hex');
+        const rawAuthToken = requestHeaders?.authorization || 'NO_AUTH_TOKEN';
+
+        const payloadHash = crypto.createHash('sha256').update(rawPayloadString + rawAuthToken).digest('hex');
 
         if (semanticCache.has(payloadHash)) {
             const cacheEntry = semanticCache.get(payloadHash);
             if (isCacheValid(cacheEntry)) {
-                if (cacheEntry.decision === "SAFE") return generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
-                return handleRejection(cacheEntry.decision, this.guardianId);
+                if (cacheEntry.shardHex) return cacheEntry.shardHex;
+                return handleRejection("MALICIOUS / CACHED", this.guardianId);
             }
             semanticCache.delete(payloadHash);
         }
@@ -114,12 +116,13 @@ export class VirtualGuardian {
         const prompt = buildPrompt(payload, sanitizedPayload);
         const decision = await fetchSLMDecision(prompt, signal);
 
-        semanticCache.set(payloadHash, { decision, timestamp: Date.now() });
-
         if (decision === "SAFE") {
-            return generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
+            const shardHex = generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
+            semanticCache.set(payloadHash, { shardHex, timestamp: Date.now() });
+            return shardHex;
         }
 
+        semanticCache.set(payloadHash, { shardHex: null, timestamp: Date.now() });
         return handleRejection(decision, this.guardianId);
     }
 }

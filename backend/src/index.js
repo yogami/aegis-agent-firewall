@@ -75,79 +75,35 @@ let activeSystemState = {
 server.get('/health', async () => ({ status: 'ok', mpc_nodes_active: 5 }));
 server.get('/state', async () => activeSystemState);
 
-function resolveQuorum(state) {
-    state.isResolved = true;
-    state.abortController.abort();
-    state.resolve({ success: true, responses: state.safeResponses });
-}
+async function buildQuorumPromise(payload, signal) {
+    const guardianPromises = platformGuardians.map(g =>
+        g.evaluatePayload(payload, signal, { authorization: 'Bearer aegis-agent-token-v1' })
+            .then(res => ({ status: 'fulfilled', value: res }))
+            .catch(err => ({ status: 'rejected', reason: err }))
+    );
 
-function rejectQuorum(state) {
-    state.isResolved = true;
-    state.abortController.abort();
-    state.resolve({ success: false, reasons: state.rejectReasons });
-}
+    const results = await Promise.allSettled(guardianPromises);
 
-function handleSafeResponse(response, state) {
-    state.approvals++;
-    state.safeResponses.push(response);
-    if (state.isResolved) return;
-    if (state.approvals === 3) resolveQuorum(state);
-}
+    const safeResponses = [];
+    const rejectReasons = [];
 
-function handleRejectedResponse(reason, state) {
-    state.rejections++;
-    state.rejectReasons.push(reason);
-    if (state.isResolved) return;
-    if (state.rejections > 2) rejectQuorum(state);
-}
-
-function routeGuardianResponse(response, state) {
-    if (response.safe) return handleSafeResponse(response, state);
-    handleRejectedResponse(response.reason, state);
-}
-
-function processGuardianResponse(response, state) {
-    if (state.isResolved) return;
-    routeGuardianResponse(response, state);
-}
-
-function handleQuorumResolution(res, state) {
-    processGuardianResponse(res, state);
-}
-
-function handleQuorumRejection(state) {
-    handleRejectedResponse("Network Timeout/Error", state);
-}
-
-function assignQuorumEvents(g, payload, state) {
-    g.evaluatePayload(payload, state.abortController.signal)
-        .then(res => handleQuorumResolution(res, state))
-        .catch(() => handleQuorumRejection(state));
-}
-
-function triggerPlatformGuardians(resolve, payload, state) {
-    state.resolve = resolve;
-    platformGuardians.forEach(g => assignQuorumEvents(g, payload, state));
-}
-
-function buildQuorumPromise(payload, state) {
-    return new Promise(function (resolve) {
-        triggerPlatformGuardians(resolve, payload, state);
-    });
-}
-
-function checkTimeout(state, resolve) {
-    if (!state.isResolved) {
-        state.isResolved = true;
-        state.abortController.abort();
-        resolve({ success: false, reasons: ["Gateway Timeout"] });
+    for (const result of results) {
+        if (result.status === 'fulfilled') {
+            const res = result.value.value;
+            if (res.safe || typeof res === 'string') {
+                safeResponses.push(res.shardHex || res);
+            } else {
+                rejectReasons.push(res.reason);
+            }
+        } else {
+            rejectReasons.push("Network Timeout/Error");
+        }
     }
-}
 
-function buildTimeoutPromise(state) {
-    return new Promise(function (resolve) {
-        setTimeout(() => checkTimeout(state, resolve), 3000);
-    });
+    if (safeResponses.length >= 3) {
+        return { success: true, responses: safeResponses };
+    }
+    return { success: false, reasons: rejectReasons };
 }
 
 function extractSignatureBytes(sortedResponses) {
@@ -186,65 +142,59 @@ function getMasterSignatureHash(responses, payload) {
     return finalHex;
 }
 
-function updateStateIfValid(payload) {
-    if (payload.method === 'PUT' && payload.endpoint.includes('/config')) {
-        activeSystemState = { ...activeSystemState, ...payload.body };
-        evictGlobalSemanticCache();
-    }
-}
-
-function checkAuth(request, reply) {
-    if (request.headers.authorization !== 'Bearer aegis-agent-token-v1') {
-        reply.status(401).send({ success: false, error: 'Unauthorized: Agent DID/Token missing' });
-        return false;
-    }
-    return true;
-}
-
-function handleRejectionReply(reply, consensus, state) {
-    return reply.status(403).send({
-        status: 'rejected',
-        message: 'Transaction blocked by Aegis MPC Network',
-        threshold_met: false,
-        approvals: state.approvals,
-        rejections: consensus.reasons
-    });
-}
-
-function handleSuccessReply(reply, masterSignature) {
-    return reply.status(200).send({
-        status: 'success', message: 'Transaction authorized', threshold_met: true,
-        optimistic_aggregation_ms: 'sub-100', approvals: 3, master_signature_hash: masterSignature, resulting_state: activeSystemState
-    });
-}
-
-function executeMasterSignature(consensus, payload) {
-    try {
-        const masterSignature = getMasterSignatureHash(consensus.responses, payload);
-        updateStateIfValid(payload);
-        return { success: true, masterSignature };
-    } catch (e) {
-        return { success: false, error: e };
-    }
-}
-
-async function executeTransaction(request, reply, state) {
+async function executeTransaction(request, reply) {
     const payload = request.body;
-    const consensus = await Promise.race([buildQuorumPromise(payload, state), buildTimeoutPromise(state)]);
+    const abortController = new AbortController();
 
-    if (!consensus.success) return handleRejectionReply(reply, consensus, state);
+    const timeoutPromise = new Promise(resolve => {
+        setTimeout(() => {
+            abortController.abort();
+            resolve({ success: false, reasons: ["Gateway Timeout"] });
+        }, 3000);
+    });
 
-    const execution = executeMasterSignature(consensus, payload);
-    if (!execution.success) return reply.status(500).send({ error: execution.error.message });
+    const consensus = await Promise.race([buildQuorumPromise(payload, abortController.signal), timeoutPromise]);
 
-    return handleSuccessReply(reply, execution.masterSignature);
+    if (!consensus.success) {
+        return reply.status(403).send({
+            status: 'rejected',
+            message: 'Transaction blocked by Aegis MPC Network',
+            threshold_met: false,
+            approvals: (consensus.responses || []).length,
+            rejections: consensus.reasons
+        });
+    }
+
+    try {
+        const masterSignatureHex = getMasterSignatureHash(consensus.responses, payload);
+
+        if (payload.method === 'PUT' && payload.endpoint.includes('/config')) {
+            activeSystemState = { ...activeSystemState, ...payload.body };
+            evictGlobalSemanticCache();
+        }
+
+        return reply.status(200).send({
+            status: 'success',
+            message: 'Transaction authorized',
+            threshold_met: true,
+            optimistic_aggregation_ms: 'sub-100',
+            approvals: consensus.responses.length,
+            master_signature_hash: masterSignatureHex,
+            resulting_state: activeSystemState
+        });
+
+    } catch (error) {
+        server.log.error(error);
+        return reply.status(500).send({ error: error.message });
+    }
 }
 
 server.post('/v1/execute', async (request, reply) => {
-    if (!checkAuth(request, reply)) return;
+    if (request.headers.authorization !== 'Bearer aegis-agent-token-v1') {
+        return reply.status(401).send({ success: false, error: 'Unauthorized: Agent DID/Token missing' });
+    }
     server.log.info(`[INGRESS] Received execution intent for ${request.body.method}`);
-    const state = { approvals: 0, rejections: 0, safeResponses: [], rejectReasons: [], isResolved: false, abortController: new AbortController() };
-    return await executeTransaction(request, reply, state);
+    return await executeTransaction(request, reply);
 });
 
 async function start() {

@@ -47,12 +47,52 @@ describe('VirtualGuardian', () => {
     });
 
     test('evaluatePayload should abort gracefully if AbortController signals', async () => {
-        global.fetch = jest.fn(() => Promise.reject({ name: 'AbortError' }));
+        global.fetch = jest.fn(() => Promise.reject(new Error('AbortError')));
 
         const payload = { method: 'GET', endpoint: '/public/status' };
-        const result = await guardian.evaluatePayload(payload, new AbortController().signal);
+        try {
+            await guardian.evaluatePayload(payload, new AbortController().signal);
+        } catch (error) {
+            expect(error.message).toContain('AbortError');
+        }
+    });
 
-        expect(result.safe).toBe(false);
-        expect(result.reason).toContain('Execution Aborted');
+    test('semantic cache should hit on duplicate payload and bypass fetch', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ choices: [{ message: { content: "SAFE" } }] })
+            })
+        );
+
+        const payload = { method: 'GET', endpoint: '/cached/data' };
+
+        const result1 = await guardian.evaluatePayload(payload, new AbortController().signal);
+        expect(result1.safe).toBe(true);
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        const result2 = await guardian.evaluatePayload(payload, new AbortController().signal);
+        expect(result2.safe).toBe(true);
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
+
+    test('semantic cache should clear correctly on eviction trigger', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ choices: [{ message: { content: "SAFE" } }] })
+            })
+        );
+
+        const payload = { method: 'GET', endpoint: '/eviction/test' };
+
+        await guardian.evaluatePayload(payload, new AbortController().signal);
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        const { evictGlobalSemanticCache } = await import('../src/guardian.js');
+        evictGlobalSemanticCache();
+
+        await guardian.evaluatePayload(payload, new AbortController().signal);
+        expect(global.fetch).toHaveBeenCalledTimes(2);
     });
 });

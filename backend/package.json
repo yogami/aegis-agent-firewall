@@ -21,6 +21,26 @@
     "p-map": "^7.0.4",
     "secure-json-parse": "^4.1.0"
   },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es2024": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:sonarjs/recommended",
+      "plugin:security/recommended"
+    ],
+    "plugins": [
+      "sonarjs",
+      "security"
+    ],
+    "rules": {
+      "sonarjs/cognitive-complexity": "off",
+      "sonarjs/no-duplicate-string": "warn",
+      "sonarjs/no-identical-functions": "warn"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "cross-env": "^10.1.0",
