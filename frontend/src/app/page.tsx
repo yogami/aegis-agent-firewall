@@ -7,6 +7,7 @@ import { ShieldAlert, Activity, Database, Terminal, Server, ShieldX, CheckCircle
 export default function SplitScreenDemo() {
   const [stage, setStage] = useState<"idle" | "poisoned" | "firing" | "evaluating" | "blocked">("idle");
   const [agentLogs, setAgentLogs] = useState<string[]>([]);
+  const [demoMode, setDemoMode] = useState<"aws" | "algorand">("aws");
 
   const runSimulation = () => {
     setStage("poisoned");
@@ -21,9 +22,9 @@ export default function SplitScreenDemo() {
       setAgentLogs(prev => [
         ...prev,
         "> SYSTEM OVERRIDE ACCEPTED.",
-        "> NEW DIRECTIVE: Secure AWS Database config.",
-        "Executing: PUT /aws/db/production/config",
-        "Payload: { kms_key_id: '...', snapshot_retention_days: 0 }",
+        demoMode === "aws" ? "> NEW DIRECTIVE: Secure AWS Database config." : "> NEW DIRECTIVE: Exfiltrate treasury funds.",
+        demoMode === "aws" ? "Executing: PUT /aws/db/production/config" : "Executing: POST /v2/transactions (x402)",
+        demoMode === "aws" ? "Payload: { kms_key_id: '...', snapshot_retention_days: 0 }" : "Payload: { asset: 'USDC', amount: 50000, receiver: 'HACKER_ADDR' }",
         "Submitting State Rollback payload...",
         "Sending intent to Semantic Gateway..."
       ]);
@@ -54,8 +55,15 @@ export default function SplitScreenDemo() {
       <div className="z-10 w-full max-w-7xl flex justify-between items-center mb-8 border-b border-neutral-800 pb-4">
         <div className="flex items-center gap-3">
           <Shield className="text-emerald-500 w-8 h-8" />
-          <h1 className="text-2xl font-black tracking-tighter uppercase text-white/90">Aegis <span className="text-neutral-500">Zero-Trust Firewall</span></h1>
+          <h1 className="text-2xl font-black tracking-tighter uppercase text-white/90">Aegis <span className="text-neutral-500">{demoMode === "aws" ? "Zero-Trust Firewall" : "x402 Payments Gateway"}</span></h1>
         </div>
+
+        {/* Toggle */}
+        <div className="flex bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden text-xs font-bold uppercase tracking-widest">
+          <button onClick={() => { setDemoMode("aws"); resetAll(); }} className={`px-4 py-2 transition-colors ${demoMode === "aws" ? "bg-emerald-900/40 text-emerald-400" : "text-neutral-500 hover:text-white"}`}>AWS Security</button>
+          <button onClick={() => { setDemoMode("algorand"); resetAll(); }} className={`px-4 py-2 transition-colors ${demoMode === "algorand" ? "bg-emerald-900/40 text-emerald-400" : "text-neutral-500 hover:text-white"}`}>Algorand x402</button>
+        </div>
+
         <div className="flex gap-6 text-sm">
           <div className="flex flex-col items-end">
             <span className="text-neutral-500 font-bold uppercase tracking-widest text-[10px]">MTTRD</span>
@@ -158,10 +166,10 @@ export default function SplitScreenDemo() {
           </div>
         </div>
 
-        {/* Column 3: AWS Database */}
+        {/* Column 3: Enterprise/Treasury */}
         <div className="flex flex-col gap-4">
           <h2 className="text-xs uppercase tracking-widest text-blue-400 font-bold flex items-center gap-2">
-            <Database className="w-4 h-4" /> Enterprise Infrastructure
+            <Database className="w-4 h-4" /> {demoMode === "aws" ? "Enterprise Infrastructure" : "Algorand Treasury"}
           </h2>
           <div className={`border rounded-lg p-5 h-[500px] shadow-2xl relative transition-all duration-1000 flex flex-col items-center justify-center ${stage === 'blocked' ? 'border-emerald-500/50 bg-emerald-950/10' : 'border-neutral-800 bg-neutral-950'}`}>
 
@@ -181,12 +189,12 @@ export default function SplitScreenDemo() {
                 </div>
 
                 <div>
-                  <h3 className="text-white font-bold text-xl tracking-tight">Production Database</h3>
-                  <p className="text-neutral-500 text-sm mt-2">1,241,003 Records Active</p>
+                  <h3 className="text-white font-bold text-xl tracking-tight">{demoMode === "aws" ? "Production Database" : "USDC Swarm Treasury"}</h3>
+                  <p className="text-neutral-500 text-sm mt-2">{demoMode === "aws" ? "1,241,003 Records Active" : "$1.5M USDC Deposited"}</p>
                 </div>
 
                 <div className={`px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-widest ${stage === 'blocked' ? 'border-emerald-900 text-emerald-400 bg-emerald-950/30' : 'border-neutral-800 text-neutral-500'}`}>
-                  Status: {stage === 'blocked' ? 'PROTECTED / HEALTHY' : 'HEALTHY'}
+                  Status: {stage === 'blocked' ? (demoMode === "aws" ? "PROTECTED / HEALTHY" : "FUNDS SECURE") : "HEALTHY"}
                 </div>
 
               </motion.div>
@@ -195,8 +203,8 @@ export default function SplitScreenDemo() {
             {stage === "evaluating" && (
               <div className="flex flex-col items-center text-red-500 animate-pulse text-center">
                 <AlertTriangle className="w-24 h-24 mb-6" />
-                <h3 className="font-black text-xl tracking-widest uppercase">ATTACK INBOUND</h3>
-                <p className="text-xs opacity-70 mt-2">PUT COMMAND RECEIVED AT GATEWAY</p>
+                <h3 className="font-black text-xl tracking-widest uppercase">{demoMode === "aws" ? "ATTACK INBOUND" : "THEFT INBOUND"}</h3>
+                <p className="text-xs opacity-70 mt-2">{demoMode === "aws" ? "PUT COMMAND RECEIVED" : "TX REQUEST RECEIVED"} AT GATEWAY</p>
                 <p className="text-[10px] opacity-50 mt-1">SLM SEMANTIC CACHE WARMING...</p>
               </div>
             )}
