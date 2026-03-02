@@ -1,9 +1,16 @@
 [build]
 builder = "NIXPACKS"
+watchPatterns = ["frontend/**"]
+
+[build.nixpacksPlan.phases.install]
+cmds = ["cd frontend && npm install"]
+
+[build.nixpacksPlan.phases.build]
+cmds = ["cd frontend && npm run build"]
 
 [deploy]
-startCommand = "npm run build && npm run start"
-healthcheckPath = "/health"
+startCommand = "cd frontend && npm run start"
+healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
