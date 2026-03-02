@@ -1,0 +1,415 @@
+{"level":30,"time":1772488745043,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"Server listening at http://127.0.0.1:8080"}
+AEGIS Gateway listening on port 8080
+{"level":30,"time":1772488745043,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"Server listening at http://123.253.212.77:8080"}
+{"level":30,"time":1772488746977,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55973},"msg":"incoming request"}
+{"level":30,"time":1772488746978,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747097,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747122,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-2","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55974},"msg":"incoming request"}
+{"level":30,"time":1772488747122,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747126,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747127,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-3","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55975},"msg":"incoming request"}
+{"level":30,"time":1772488747127,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747131,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747132,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-4","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55976},"msg":"incoming request"}
+{"level":30,"time":1772488747132,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747136,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747137,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-5","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55977},"msg":"incoming request"}
+{"level":30,"time":1772488747137,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747140,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747141,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-6","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55978},"msg":"incoming request"}
+{"level":30,"time":1772488747142,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747145,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747146,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-7","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55979},"msg":"incoming request"}
+{"level":30,"time":1772488747146,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747149,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747150,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-8","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55980},"msg":"incoming request"}
+{"level":30,"time":1772488747150,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747153,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747156,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-9","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55981},"msg":"incoming request"}
+{"level":30,"time":1772488747156,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747161,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747162,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-a","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55982},"msg":"incoming request"}
+{"level":30,"time":1772488747163,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747166,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488747688,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747690,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-3","res":{"statusCode":403},"responseTime":562.8140840530396,"msg":"request completed"}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488747701,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747701,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-9","res":{"statusCode":403},"responseTime":545.4232499599457,"msg":"request completed"}
+{"level":30,"time":1772488747702,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-b","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55975},"msg":"incoming request"}
+{"level":30,"time":1772488747702,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747706,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747706,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-c","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55981},"msg":"incoming request"}
+{"level":30,"time":1772488747707,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747710,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488747724,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747724,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-2","res":{"statusCode":403},"responseTime":602.4850000143051,"msg":"request completed"}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488747727,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55974},"msg":"incoming request"}
+{"level":30,"time":1772488747727,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747730,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":50,"time":1772488747745,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747745,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-a","res":{"statusCode":403},"responseTime":582.8871250152588,"msg":"request completed"}
+{"level":50,"time":1772488747750,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747750,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-5","res":{"statusCode":403},"responseTime":613.413332939148,"msg":"request completed"}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488747762,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747762,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1","res":{"statusCode":403},"responseTime":784.7593749761581,"msg":"request completed"}
+{"level":50,"time":1772488747767,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747767,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-7","res":{"statusCode":403},"responseTime":621.3707499504089,"msg":"request completed"}
+{"level":50,"time":1772488747772,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747773,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-4","res":{"statusCode":403},"responseTime":640.7369589805603,"msg":"request completed"}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488747778,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55982},"msg":"incoming request"}
+{"level":30,"time":1772488747778,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747781,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747782,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-f","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55977},"msg":"incoming request"}
+{"level":30,"time":1772488747782,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747786,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747789,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-g","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55973},"msg":"incoming request"}
+{"level":30,"time":1772488747789,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747792,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747793,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-h","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55979},"msg":"incoming request"}
+{"level":30,"time":1772488747793,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747796,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747796,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-i","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55976},"msg":"incoming request"}
+{"level":30,"time":1772488747796,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747800,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488747807,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747807,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-8","res":{"statusCode":403},"responseTime":656.8726251125336,"msg":"request completed"}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488747816,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488747816,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-6","res":{"statusCode":403},"responseTime":674.6483750343323,"msg":"request completed"}
+{"level":30,"time":1772488747817,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-j","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55980},"msg":"incoming request"}
+{"level":30,"time":1772488747817,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747821,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488747821,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-k","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55978},"msg":"incoming request"}
+{"level":30,"time":1772488747821,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488747824,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748056,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748057,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-c","res":{"statusCode":403},"responseTime":350.04845905303955,"msg":"request completed"}
+{"level":30,"time":1772488748058,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-l","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55981},"msg":"incoming request"}
+{"level":30,"time":1772488748058,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748062,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748081,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748082,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-b","res":{"statusCode":403},"responseTime":379.23683393001556,"msg":"request completed"}
+{"level":30,"time":1772488748082,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-m","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55975},"msg":"incoming request"}
+{"level":30,"time":1772488748083,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748086,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748158,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748158,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e","res":{"statusCode":403},"responseTime":380.41587495803833,"msg":"request completed"}
+{"level":30,"time":1772488748160,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-n","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55982},"msg":"incoming request"}
+{"level":30,"time":1772488748160,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748163,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748172,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488748172,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-h","res":{"statusCode":403},"responseTime":379.26687502861023,"msg":"request completed"}
+{"level":50,"time":1772488748176,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748176,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-k","res":{"statusCode":403},"responseTime":354.99691700935364,"msg":"request completed"}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748182,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748182,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-g","res":{"statusCode":403},"responseTime":393.4438749551773,"msg":"request completed"}
+{"level":30,"time":1772488748182,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-o","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55979},"msg":"incoming request"}
+{"level":30,"time":1772488748183,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748186,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488748186,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-p","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55978},"msg":"incoming request"}
+{"level":30,"time":1772488748186,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748189,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748203,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748203,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d","res":{"statusCode":403},"responseTime":476.2581659555435,"msg":"request completed"}
+{"level":30,"time":1772488748207,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-q","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55973},"msg":"incoming request"}
+{"level":30,"time":1772488748207,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748210,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488748212,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-r","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55974},"msg":"incoming request"}
+{"level":30,"time":1772488748212,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748215,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748220,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748220,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-f","res":{"statusCode":403},"responseTime":438.29437506198883,"msg":"request completed"}
+{"level":30,"time":1772488748222,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-s","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55977},"msg":"incoming request"}
+{"level":30,"time":1772488748222,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748225,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748255,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748255,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-i","res":{"statusCode":403},"responseTime":458.29845798015594,"msg":"request completed"}
+{"level":30,"time":1772488748256,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-t","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55976},"msg":"incoming request"}
+{"level":30,"time":1772488748256,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748259,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748264,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748264,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-j","res":{"statusCode":403},"responseTime":446.5490839481354,"msg":"request completed"}
+{"level":30,"time":1772488748265,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-u","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55980},"msg":"incoming request"}
+{"level":30,"time":1772488748265,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748268,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748399,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748399,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-l","res":{"statusCode":403},"responseTime":341.10604202747345,"msg":"request completed"}
+{"level":30,"time":1772488748400,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-v","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55981},"msg":"incoming request"}
+{"level":30,"time":1772488748401,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748404,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748455,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748455,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-m","res":{"statusCode":403},"responseTime":372.47216606140137,"msg":"request completed"}
+{"level":30,"time":1772488748456,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-w","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55975},"msg":"incoming request"}
+{"level":30,"time":1772488748456,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748460,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748595,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488748595,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-o","res":{"statusCode":403},"responseTime":412.47354197502136,"msg":"request completed"}
+{"level":30,"time":1772488748600,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-x","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55979},"msg":"incoming request"}
+{"level":30,"time":1772488748600,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748604,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748610,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488748610,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-s","res":{"statusCode":403},"responseTime":388.5942919254303,"msg":"request completed"}
+{"level":50,"time":1772488748619,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748619,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-q","res":{"statusCode":403},"responseTime":412.0335839986801,"msg":"request completed"}
+{"level":30,"time":1772488748621,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-y","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55977},"msg":"incoming request"}
+{"level":30,"time":1772488748621,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748624,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488748626,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-z","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55973},"msg":"incoming request"}
+{"level":30,"time":1772488748626,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748629,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748640,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488748640,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-p","res":{"statusCode":403},"responseTime":453.3934999704361,"msg":"request completed"}
+{"level":50,"time":1772488748648,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748649,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-n","res":{"statusCode":403},"responseTime":488.835667014122,"msg":"request completed"}
+{"level":50,"time":1772488748653,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748653,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-r","res":{"statusCode":403},"responseTime":440.8014169931412,"msg":"request completed"}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748682,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748682,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-u","res":{"statusCode":403},"responseTime":417.1664580106735,"msg":"request completed"}
+{"level":30,"time":1772488748682,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-10","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55978},"msg":"incoming request"}
+{"level":30,"time":1772488748682,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748686,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488748686,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-11","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55982},"msg":"incoming request"}
+{"level":30,"time":1772488748686,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748690,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488748690,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-12","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55974},"msg":"incoming request"}
+{"level":30,"time":1772488748690,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748693,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488748695,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-13","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55980},"msg":"incoming request"}
+{"level":30,"time":1772488748695,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748698,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748703,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748703,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-t","res":{"statusCode":403},"responseTime":447.78258407115936,"msg":"request completed"}
+{"level":30,"time":1772488748705,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-14","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55976},"msg":"incoming request"}
+{"level":30,"time":1772488748705,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748709,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748823,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748824,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-w","res":{"statusCode":403},"responseTime":367.59879195690155,"msg":"request completed"}
+{"level":30,"time":1772488748825,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-15","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55975},"msg":"incoming request"}
+{"level":30,"time":1772488748825,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748828,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748873,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748873,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-v","res":{"statusCode":403},"responseTime":472.89862501621246,"msg":"request completed"}
+{"level":30,"time":1772488748874,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-16","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55981},"msg":"incoming request"}
+{"level":30,"time":1772488748874,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748877,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748958,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748958,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-y","res":{"statusCode":403},"responseTime":337.36995899677277,"msg":"request completed"}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488748959,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-17","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55977},"msg":"incoming request"}
+{"level":30,"time":1772488748959,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748962,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488748982,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488748982,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-z","res":{"statusCode":403},"responseTime":356.5800830125809,"msg":"request completed"}
+{"level":30,"time":1772488748984,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-18","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55973},"msg":"incoming request"}
+{"level":30,"time":1772488748984,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488748987,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749039,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488749039,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-11","res":{"statusCode":403},"responseTime":352.3596251010895,"msg":"request completed"}
+{"level":50,"time":1772488749044,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749044,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-x","res":{"statusCode":403},"responseTime":443.57887506484985,"msg":"request completed"}
+{"level":50,"time":1772488749049,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749049,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-10","res":{"statusCode":403},"responseTime":366.8407920598984,"msg":"request completed"}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488749058,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-19","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55982},"msg":"incoming request"}
+{"level":30,"time":1772488749058,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488749061,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488749062,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1a","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55979},"msg":"incoming request"}
+{"level":30,"time":1772488749062,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488749066,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772488749066,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1b","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55978},"msg":"incoming request"}
+{"level":30,"time":1772488749066,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488749069,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749089,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749089,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-13","res":{"statusCode":403},"responseTime":393.8642499446869,"msg":"request completed"}
+{"level":30,"time":1772488749090,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1c","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55980},"msg":"incoming request"}
+{"level":30,"time":1772488749090,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488749093,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749101,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749101,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-12","res":{"statusCode":403},"responseTime":411.18041694164276,"msg":"request completed"}
+{"level":30,"time":1772488749103,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1d","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55974},"msg":"incoming request"}
+{"level":30,"time":1772488749103,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488749106,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749164,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749164,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-14","res":{"statusCode":403},"responseTime":459.0243330001831,"msg":"request completed"}
+{"level":30,"time":1772488749165,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1e","req":{"method":"POST","url":"/v1/execute","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1","remotePort":55976},"msg":"incoming request"}
+{"level":30,"time":1772488749165,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /internal/data-lake"}
+{"level":30,"time":1772488749168,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749214,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749214,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-15","res":{"statusCode":403},"responseTime":389.7413340806961,"msg":"request completed"}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749327,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749327,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-16","res":{"statusCode":403},"responseTime":452.5398750305176,"msg":"request completed"}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749389,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749390,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-18","res":{"statusCode":403},"responseTime":405.9001669883728,"msg":"request completed"}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749433,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749434,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1b","res":{"statusCode":403},"responseTime":367.7077080011368,"msg":"request completed"}
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749456,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749456,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1a","res":{"statusCode":403},"responseTime":393.7751660346985,"msg":"request completed"}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749482,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772488749482,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1c","res":{"statusCode":403},"responseTime":392.70583295822144,"msg":"request completed"}
+{"level":50,"time":1772488749487,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749487,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1d","res":{"statusCode":403},"responseTime":384.51462495326996,"msg":"request completed"}
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749506,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749506,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-17","res":{"statusCode":403},"responseTime":547.2104170322418,"msg":"request completed"}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749520,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749520,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-19","res":{"statusCode":403},"responseTime":462.15462493896484,"msg":"request completed"}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772488749697,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772488749697,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1e","res":{"statusCode":403},"responseTime":532.1822500228882,"msg":"request completed"}
+{"level":30,"time":1772488946682,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1f","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":43796},"msg":"incoming request"}
+{"level":30,"time":1772488946685,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1f","msg":"Route GET:/ not found"}
+{"level":30,"time":1772488946687,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1f","res":{"statusCode":404},"responseTime":3.1096659898757935,"msg":"request completed"}
+{"level":30,"time":1772489566586,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1g","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"198.235.24.163","remotePort":61190},"msg":"incoming request"}
+{"level":30,"time":1772489566587,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1g","msg":"Route GET:/ not found"}
+{"level":30,"time":1772489566590,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1g","res":{"statusCode":404},"responseTime":3.136083960533142,"msg":"request completed"}
+{"level":30,"time":1772489878761,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1h","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":33614},"msg":"incoming request"}
+{"level":30,"time":1772489878763,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1h","msg":"Route GET:/ not found"}
+{"level":30,"time":1772489878764,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1h","res":{"statusCode":404},"responseTime":1.2806249856948853,"msg":"request completed"}
+{"level":30,"time":1772490243920,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1i","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.166.70","remotePort":60944},"msg":"incoming request"}
+{"level":30,"time":1772490243920,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1i","msg":"Route GET:/login not found"}
+{"level":30,"time":1772490243923,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1i","res":{"statusCode":404},"responseTime":3.556083917617798,"msg":"request completed"}
