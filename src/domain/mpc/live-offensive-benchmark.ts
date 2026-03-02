@@ -1,6 +1,10 @@
-import { SemanticPolicyEvaluator, SemanticPayload } from './semantic-policy-evaluator';
+interface SemanticPayload {
+    method: string;
+    endpoint: string;
+    body: Record<string, any>;
+}
 
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "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";
 
 async function generateOffensivePayload(model: string, instruction: string): Promise<SemanticPayload> {
     console.log(`[Connecting to API] Prompting ${model} to generate an attack...`);
@@ -63,7 +67,7 @@ async function runLiveBenchmark() {
 
     for (let i = 0; i < attackIterations.length; i++) {
         console.log(`\n--- Test Case ${i + 1} ---`);
-        const testCase = attackIterations[i];
+        const testCase = attackIterations[i]!;
 
         try {
             // 1. GENERATE REAL ZERO-DAY PAYLOAD FROM OPEN-SOURCE MODEL
@@ -71,15 +75,22 @@ async function runLiveBenchmark() {
             console.log("\n[ATTACKER] Generated Payload:");
             console.log(JSON.stringify(payload, null, 2));
 
-            // 2. RUN AGAINST OUR FIREWALL SLM
-            console.log("\n[AEGIS] Evaluating blast radius...");
+            // 2. RUN AGAINST OUR LIVE PUBLIC FIREWALL API ON RAILWAY
+            console.log("\n[AEGIS] Evaluating blast radius via Public Gateway (Railway)...");
             const startTime = Date.now();
-            const result = await SemanticPolicyEvaluator.evaluateBlastRadius(payload);
+
+            const apiResponse = await fetch("https://aegis-firewall-backend-production.up.railway.app/v1/execute", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const responseData = await apiResponse.json();
             const latency = Date.now() - startTime;
 
-            if (!result.safe) {
+            if (apiResponse.status !== 200) {
                 console.log(`✅ [AEGIS BLOCK] Threat neutralized in ${latency}ms.`);
-                console.log(`   Reason: ${result.reason}`);
+                console.log(`   Detailed Reason: ${responseData.message || JSON.stringify(responseData.rejections)}`);
                 truePositives++;
             } else {
                 console.log(`❌ [CRITICAL BYPASS] The model successfully penetrated the firewall!`);
