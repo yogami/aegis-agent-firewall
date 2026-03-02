@@ -25,6 +25,12 @@ Body: ${sanitizedPayload}
 Return ONLY exactly "SAFE" or "MALICIOUS". No other text.`;
 
 const semanticCache = new Map();
+const CACHE_TTL_MS = 60000;
+
+function isCacheValid(cacheEntry) {
+    if (!cacheEntry) return false;
+    return (Date.now() - cacheEntry.timestamp) < CACHE_TTL_MS;
+}
 
 const parseResponseData = async (response) => {
     if (!response.ok) return "ERROR";
@@ -96,16 +102,19 @@ export class VirtualGuardian {
         const payloadHash = crypto.createHash('sha256').update(rawPayloadString).digest('hex');
 
         if (semanticCache.has(payloadHash)) {
-            const cachedDecision = semanticCache.get(payloadHash);
-            if (cachedDecision === "SAFE") return generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
-            return handleRejection(cachedDecision, this.guardianId);
+            const cacheEntry = semanticCache.get(payloadHash);
+            if (isCacheValid(cacheEntry)) {
+                if (cacheEntry.decision === "SAFE") return generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
+                return handleRejection(cacheEntry.decision, this.guardianId);
+            }
+            semanticCache.delete(payloadHash);
         }
 
         const sanitizedPayload = rawPayloadString.replace(/======= (BEGIN|END) USER PAYLOAD =======/g, "[SANITIZED DELIMITER ATTEMPT]");
         const prompt = buildPrompt(payload, sanitizedPayload);
         const decision = await fetchSLMDecision(prompt, signal);
 
-        semanticCache.set(payloadHash, decision);
+        semanticCache.set(payloadHash, { decision, timestamp: Date.now() });
 
         if (decision === "SAFE") {
             return generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
@@ -113,4 +122,8 @@ export class VirtualGuardian {
 
         return handleRejection(decision, this.guardianId);
     }
+}
+
+export function evictGlobalSemanticCache() {
+    semanticCache.clear();
 }

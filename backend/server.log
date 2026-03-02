@@ -413,3 +413,12 @@ AEGIS Gateway listening on port 8080
 {"level":30,"time":1772490243920,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1i","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.166.70","remotePort":60944},"msg":"incoming request"}
 {"level":30,"time":1772490243920,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1i","msg":"Route GET:/login not found"}
 {"level":30,"time":1772490243923,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1i","res":{"statusCode":404},"responseTime":3.556083917617798,"msg":"request completed"}
+{"level":30,"time":1772491331989,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1j","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":52164},"msg":"incoming request"}
+{"level":30,"time":1772491331990,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1j","msg":"Route GET:/ not found"}
+{"level":30,"time":1772491331993,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1j","res":{"statusCode":404},"responseTime":3.0943329334259033,"msg":"request completed"}
+{"level":30,"time":1772491405363,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1k","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.190.177","remotePort":47998},"msg":"incoming request"}
+{"level":30,"time":1772491405364,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1k","msg":"Route GET:/login not found"}
+{"level":30,"time":1772491405365,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1k","res":{"statusCode":404},"responseTime":1.2441660165786743,"msg":"request completed"}
+{"level":30,"time":1772491609452,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1l","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"172.245.21.30","remotePort":19800},"msg":"incoming request"}
+{"level":30,"time":1772491609453,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1l","msg":"Route GET:/ not found"}
+{"level":30,"time":1772491609455,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-1l","res":{"statusCode":404},"responseTime":2.2640000581741333,"msg":"request completed"}

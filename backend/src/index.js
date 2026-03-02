@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
-import { VirtualGuardian } from './guardian.js';
+import { VirtualGuardian, evictGlobalSemanticCache } from './guardian.js';
 import crypto from 'crypto';
 import { bls12_381 } from '@noble/curves/bls12-381.js';
 import sjson from 'secure-json-parse';
@@ -189,6 +189,7 @@ function getMasterSignatureHash(responses, payload) {
 function updateStateIfValid(payload) {
     if (payload.method === 'PUT' && payload.endpoint.includes('/config')) {
         activeSystemState = { ...activeSystemState, ...payload.body };
+        evictGlobalSemanticCache();
     }
 }
 
