@@ -1,21 +1,9 @@
 [phases.setup]
-nixPkgs = ["stdenv", "clang", "nodejs-18_x"]
-cmds = [
-    "curl https://sh.rustup.rs -sSf | sh -s -- -y",
-    "source $HOME/.cargo/env",
-    "curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh"
-]
+nixPkgs = ["nodejs-18_x"]
 
 [phases.install]
 dependsOn = ["setup"]
 cmds = ["npm install"]
-
-[phases.build]
-dependsOn = ["install"]
-cmds = [
-    "source $HOME/.cargo/env",
-    "cd rust-bls-engine && wasm-pack build --target nodejs --out-dir ../src/pkg"
-]
 
 [start]
 cmd = "npm run start"

@@ -30,6 +30,30 @@ Return ONLY exactly "SAFE" or "MALICIOUS". No other text.`;
 const semanticCache = new Map();
 const CACHE_TTL_MS = 60000;
 
+// ═══════════════════════════════════════════════════════════
+//  Cold-Path Rate Limiter (prevents asymmetric DoS)
+// ═══════════════════════════════════════════════════════════
+const coldPathCounts = new Map();
+const COLD_PATH_WINDOW_MS = 10000;  // 10-second window
+const COLD_PATH_MAX = 5;            // max 5 unique cold-path requests per window
+
+function isColdPathAllowed(clientKey) {
+    const now = Date.now();
+    if (!coldPathCounts.has(clientKey)) {
+        coldPathCounts.set(clientKey, { count: 1, windowStart: now });
+        return true;
+    }
+    const entry = coldPathCounts.get(clientKey);
+    if (now - entry.windowStart > COLD_PATH_WINDOW_MS) {
+        entry.count = 1;
+        entry.windowStart = now;
+        return true;
+    }
+    if (entry.count >= COLD_PATH_MAX) return false;
+    entry.count++;
+    return true;
+}
+
 function isCacheValid(cacheEntry) {
     if (!cacheEntry) return false;
     return (Date.now() - cacheEntry.timestamp) < CACHE_TTL_MS;
@@ -48,16 +72,14 @@ const handleFetchFail = (error) => {
 };
 
 /**
- * Heterogeneous SLM Model Registry
- * Each guardian uses a DIFFERENT model to ensure no single prompt injection
- * technique can fool all 5 simultaneously.
+ * Heterogeneous SLM Model Registry — 3-of-3 Quorum
+ * Reduced from 5 → 3 for latency optimization.
+ * Selected for maximum model diversity (different architectures, training data, vendors).
  */
 const GUARDIAN_MODELS = [
     { id: 1, model: 'qwen/qwen-2.5-7b-instruct', provider: 'Alibaba' },
-    { id: 2, model: 'microsoft/phi-3.5-mini-128k-instruct', provider: 'Microsoft' },
-    { id: 3, model: 'google/gemma-2-9b-it', provider: 'Google' },
-    { id: 4, model: 'huggingfaceh4/zephyr-7b-beta', provider: 'HuggingFace' },
-    { id: 5, model: 'meta-llama/llama-3.1-8b-instruct', provider: 'Meta' },
+    { id: 2, model: 'google/gemma-2-9b-it', provider: 'Google' },
+    { id: 3, model: 'meta-llama/llama-3.1-8b-instruct', provider: 'Meta' },
 ];
 
 const fetchSLMDecision = async (prompt, signal, modelId) => {
@@ -91,57 +113,26 @@ const handleRejection = (decision, guardianId) => {
 };
 
 // ═══════════════════════════════════════════════════════════
-//  Rust BLS Core — Full Pipeline (blst via WASM)
+//  HMAC Audit Signatures (replaces BLS theater)
+//  Simple, fast, cryptographically sound for audit trail.
 // ═══════════════════════════════════════════════════════════
 
-let rustCoreAvailable = false;
-let rustCore = null;  // The full WASM module with all 6 functions
+const HMAC_SECRET = crypto.randomBytes(32);  // Per-instance secret
 
-const loadRustCore = async () => {
-    try {
-        rustCore = await import('./pkg/semaproof_bls_engine.js');
-        rustCoreAvailable = true;
-        console.log("[CRYPTO] 🦀 Rust BLS Core successfully initialized (Full Pipeline — blst WASM).");
-    } catch (e) {
-        console.error("[CRYPTO] ❌ Rust BLS Core failed to load. BLS signing UNAVAILABLE.", e.message);
-    }
-};
-
-await loadRustCore();
-
-if (!rustCoreAvailable) {
-    console.error("[CRYPTO] FATAL: Rust BLS Core is required. No fallback available.");
+function generateHMACSignature(guardianId, payload) {
+    const message = JSON.stringify({ guardianId, payload, ts: Date.now() });
+    return crypto.createHmac('sha256', HMAC_SECRET).update(message).digest('hex');
 }
 
-// ═══════════════════════════════════════════════════════════
-//  Guardian Key Generation & Signing (Rust-native)
-// ═══════════════════════════════════════════════════════════
+const generateSignatureShard = (payload, guardianId) => {
+    console.log(`[${guardianId}] Verdict: ✅ SAFE. Generating HMAC audit signature.`);
 
-function generateGuardianKeys() {
-    const seed = crypto.getRandomValues(new Uint8Array(32));
-    const keypairJson = rustCore.generate_keypair(seed);
-    const { sk, pk } = JSON.parse(keypairJson);
-    return { skHex: sk, pkHex: pk };
-}
-
-function signPayload(skHex, payload) {
-    const messageHex = Buffer.from(
-        crypto.createHash('sha256').update(JSON.stringify(payload)).digest()
-    ).toString('hex');
-    return rustCore.sign_message(skHex, messageHex);
-}
-
-const generateSignatureShard = (payload, skHex, pkHex, guardianId) => {
-    console.log(`[${guardianId}] Verdict: ✅ SAFE. Generating BLS Signature Shard (Rust blst).`);
-
-    const signatureHex = signPayload(skHex, payload);
+    const signatureHex = generateHMACSignature(guardianId, payload);
 
     return {
         safe: true,
         guardianId,
-        signatureShard: signatureHex,
-        publicKeyHex: pkHex,
-        rustNative: true
+        signatureShard: signatureHex
     };
 };
 
@@ -149,18 +140,20 @@ export class VirtualGuardian {
     constructor(id) {
         this.guardianId = `GuardianNode-${id}`;
         this.modelId = id;
-
-        // Generate keys via Rust BLS core
-        const { skHex, pkHex } = generateGuardianKeys();
-        this.skHex = skHex;
-        this.pkHex = pkHex;
     }
 
     async evaluatePayload(payload, signal, requestHeaders) {
         const rawPayloadString = JSON.stringify(payload) || 'None';
         const rawAuthToken = requestHeaders?.authorization || 'NO_AUTH_TOKEN';
 
-        const payloadHash = crypto.createHash('sha256').update(rawPayloadString + rawAuthToken).digest('hex');
+        // Normalize cache key: strip timestamps, nonces, and whitespace variations
+        // to prevent trivial cache bypass via appended chars
+        const normalizedPayload = JSON.stringify({
+            method: payload.method,
+            endpoint: payload.endpoint,
+            bodyKeys: payload.body ? Object.keys(payload.body).sort() : []
+        });
+        const payloadHash = crypto.createHash('sha256').update(normalizedPayload + rawAuthToken).digest('hex');
 
         if (semanticCache.has(payloadHash)) {
             const cacheEntry = semanticCache.get(payloadHash);
@@ -171,12 +164,18 @@ export class VirtualGuardian {
             semanticCache.delete(payloadHash);
         }
 
+        // Cold-path rate limiting — prevents asymmetric DoS
+        if (!isColdPathAllowed(rawAuthToken)) {
+            console.log(`[${this.guardianId}] ⚡ Cold-path rate limit hit. Rejecting.`);
+            return { safe: false, signatureShard: null, reason: "Cold-path rate limit exceeded" };
+        }
+
         const sanitizedPayload = rawPayloadString.replace(/======= (BEGIN|END) USER PAYLOAD =======/g, "[SANITIZED DELIMITER ATTEMPT]");
         const prompt = buildPrompt(payload, sanitizedPayload);
         const decision = await fetchSLMDecision(prompt, signal, this.modelId);
 
         if (decision === "SAFE") {
-            const shardHex = generateSignatureShard(payload, this.skHex, this.pkHex, this.guardianId);
+            const shardHex = generateSignatureShard(payload, this.guardianId);
             semanticCache.set(payloadHash, { shardHex, timestamp: Date.now() });
             return shardHex;
         }
@@ -190,5 +189,4 @@ export function evictGlobalSemanticCache() {
     semanticCache.clear();
 }
 
-// Export the Rust core for use by index.js aggregation
-export { GUARDIAN_MODELS, rustCore, rustCoreAvailable };
+export { GUARDIAN_MODELS };

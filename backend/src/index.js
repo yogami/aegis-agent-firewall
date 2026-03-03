@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
-import { VirtualGuardian, evictGlobalSemanticCache, rustCore, rustCoreAvailable } from './guardian.js';
+import { VirtualGuardian, evictGlobalSemanticCache } from './guardian.js';
 import crypto from 'crypto';
 import sjson from 'secure-json-parse';
 import { logBlockedTransaction } from './auditLogger.js';
@@ -16,8 +16,7 @@ if (!process.env.OPENROUTER_API_KEY) {
 
 const platformGuardians = [
     new VirtualGuardian(1), new VirtualGuardian(2),
-    new VirtualGuardian(3), new VirtualGuardian(4),
-    new VirtualGuardian(5)
+    new VirtualGuardian(3)
 ];
 
 const server = Fastify({ logger: true, bodyLimit: 8192 });
@@ -80,8 +79,9 @@ let activeSystemState = {
 
 server.get('/health', async () => ({
     status: 'ok',
-    mpc_nodes_active: 5,
-    layers: ['OPA_DETERMINISTIC', 'SLM_QUORUM', 'BLS_CRYPTO'],
+    guardian_nodes: 3,
+    layers: ['OPA_DETERMINISTIC', 'SLM_QUORUM'],
+    architecture: 'V3 — 2-Layer (OPA + SLM)',
     threatStore: getThreatStats()
 }));
 server.get('/state', async () => activeSystemState);
@@ -89,9 +89,8 @@ server.get('/v1/threats', async () => ({ threats: getThreats(), stats: getThreat
 server.get('/v1/guardians', async () => ({ guardians: GUARDIAN_MODELS }));
 server.get('/v1/metrics', async () => ({
     layers: [
-        { id: 'OPA', type: 'Deterministic', latency: '<1ms' },
-        { id: 'SLM', type: 'Probabilistic', models: GUARDIAN_MODELS.length, threshold: '3-of-5' },
-        { id: 'BLS', type: 'Cryptographic', curve: 'BLS12-381' }
+        { id: 'OPA', type: 'Deterministic', latency: '<1ms', rules: 9 },
+        { id: 'SLM', type: 'Probabilistic', models: GUARDIAN_MODELS.length, threshold: '2-of-3' }
     ],
     threatStore: getThreatStats(),
     policy: getPolicyManifest()
@@ -147,32 +146,22 @@ async function buildQuorumPromise(payload, signal) {
         }
     }
 
-    if (safeResponses.length >= 3) {
+    if (safeResponses.length >= 2) {
         return { success: true, responses: safeResponses };
     }
     return { success: false, reasons: rejectReasons };
 }
 
-function getMasterSignatureHash(responses, payload) {
+function getMasterAuditHash(responses, payload) {
     const sortedResponses = responses.sort((a, b) => a.guardianId.localeCompare(b.guardianId));
 
-    // Extract hex strings for Rust aggregation
-    const sigHexes = sortedResponses.map(r => r.signatureShard);
-    const pkHexes = sortedResponses.map(r => r.publicKeyHex);
+    // Concatenate all HMAC audit shards + payload hash for tamper-evident audit trail
+    const shards = sortedResponses.map(r => r.signatureShard).join(':');
+    const payloadHash = crypto.createHash('sha256').update(JSON.stringify(payload)).digest('hex');
 
-    // Rust WASM: aggregate signatures and public keys
-    const aggregatedSigHex = rustCore.aggregate_signatures(JSON.stringify(sigHexes));
-    const aggregatedPkHex = rustCore.aggregate_public_keys(JSON.stringify(pkHexes));
-
-    // Rust WASM: verify the aggregated signature
-    const messageHex = Buffer.from(
-        crypto.createHash('sha256').update(JSON.stringify(payload)).digest()
-    ).toString('hex');
-
-    const isValid = rustCore.verify(aggregatedSigHex, messageHex, aggregatedPkHex);
-    if (!isValid) throw new Error("Cryptographic Aggregation Failure");
-
-    return aggregatedSigHex;
+    return crypto.createHash('sha256')
+        .update(shards + ':' + payloadHash)
+        .digest('hex');
 }
 
 const globalConsensusCache = new Map();
@@ -206,7 +195,7 @@ async function executeTransaction(request, reply) {
         setTimeout(() => {
             abortController.abort();
             resolve({ success: false, reasons: ["Gateway Timeout"] });
-        }, 3000);
+        }, 2000);
     });
 
     const consensus = await Promise.race([buildQuorumPromise(payload, abortController.signal), timeoutPromise]);
@@ -225,7 +214,7 @@ async function executeTransaction(request, reply) {
     }
 
     try {
-        const masterSignatureHex = getMasterSignatureHash(consensus.responses, payload);
+        const masterSignatureHex = getMasterAuditHash(consensus.responses, payload);
 
         const response = {
             status: 'success',
@@ -279,7 +268,7 @@ server.post('/v1/execute', async (request, reply) => {
 
     server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Checking Fast-Path / Quorum.`);
 
-    // Layer 2 + 3: SLM Quorum + BLS Crypto
+    // Layer 2: SLM Quorum (2-of-3 heterogeneous models)
     return await executeTransaction(request, reply);
 });
 
