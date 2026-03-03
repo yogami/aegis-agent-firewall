@@ -95,4 +95,42 @@ describe('VirtualGuardian', () => {
         await guardian.evaluatePayload(payload, new AbortController().signal);
         expect(global.fetch).toHaveBeenCalledTimes(2);
     });
+
+    test('BLS signature shard should be a valid hex string regardless of engine', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ choices: [{ message: { content: "SAFE" } }] })
+            })
+        );
+
+        const payload = { method: 'GET', endpoint: '/bls/hex-test' };
+        const result = await guardian.evaluatePayload(payload, new AbortController().signal);
+
+        expect(result.safe).toBe(true);
+        expect(result.signatureShard).toBeDefined();
+        // Valid hex string check (must be lowercase hex chars only)
+        expect(result.signatureShard).toMatch(/^[0-9a-f]+$/);
+        expect(result.signatureShard.length).toBeGreaterThan(40);
+    });
+
+    test('noble-js fallback path should produce valid shard when Rust WASM is unavailable', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ choices: [{ message: { content: "SAFE" } }] })
+            })
+        );
+
+        // Force fallback by creating a guardian without Rust signer
+        const fallbackGuardian = new VirtualGuardian(99);
+        fallbackGuardian.rustSigner = null;
+
+        const payload = { method: 'GET', endpoint: '/fallback/noble-test' };
+        const result = await fallbackGuardian.evaluatePayload(payload, new AbortController().signal);
+
+        expect(result.safe).toBe(true);
+        expect(result.signatureShard).toBeDefined();
+        expect(result.signatureShard).toMatch(/^[0-9a-f]+$/);
+    });
 });

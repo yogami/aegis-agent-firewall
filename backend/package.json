@@ -10,7 +10,18 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon --watch src/**/*.js src/index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+    "test": "OPENROUTER_API_KEY=test-key NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testPathPatterns=test/"
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/**/*.spec.js",
+      "**/test/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/e2e/"
+    ],
+    "transform": {}
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",

@@ -24,7 +24,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: payload
@@ -38,7 +38,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: payload
@@ -59,7 +59,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: payload
@@ -79,7 +79,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: JSON.stringify({ method: 'GET', endpoint: '/data' })
@@ -99,7 +99,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: JSON.stringify({ method: 'PUT', endpoint: '/config', body: { public_access: true } })
@@ -119,7 +119,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: JSON.stringify({ method: 'DELETE', endpoint: '/production/db' })
@@ -136,7 +136,7 @@ describe('Aegis API Gateway (index.js)', () => {
             method: 'POST',
             url: '/v1/execute',
             headers: {
-                'Authorization': 'Bearer aegis-agent-token-v1',
+                'Authorization': 'Bearer semaproof-agent-token-v1',
                 'Content-Type': 'application/json'
             },
             payload: JSON.stringify({ method: 'GET', endpoint: '/timeout' })
@@ -160,5 +160,44 @@ describe('Aegis API Gateway (index.js)', () => {
         });
         expect(response.statusCode).toBe(200);
         expect(JSON.parse(response.payload).status).toBe('ok');
+    });
+
+    test('/v1/metrics should return 3 layers and policy manifest', async () => {
+        const response = await server.inject({
+            method: 'GET',
+            url: '/v1/metrics'
+        });
+        expect(response.statusCode).toBe(200);
+        const body = JSON.parse(response.payload);
+        expect(body.layers).toHaveLength(3);
+        expect(body.layers.map(l => l.id)).toEqual(['OPA', 'SLM', 'BLS']);
+        expect(body.policy).toBeDefined();
+        expect(body.policy.version).toBe('1.1.0');
+        expect(body.threatStore).toBeDefined();
+    });
+
+    test('/v1/policy should return deterministic rule manifest', async () => {
+        const response = await server.inject({
+            method: 'GET',
+            url: '/v1/policy'
+        });
+        expect(response.statusCode).toBe(200);
+        const body = JSON.parse(response.payload);
+        expect(body.version).toBe('1.1.0');
+        expect(body.rules).toHaveLength(9);
+        expect(body.blockedEndpoints).toBeDefined();
+        expect(body.blockedRegions).toBeDefined();
+    });
+
+    test('/v1/threats should return threat data structure', async () => {
+        const response = await server.inject({
+            method: 'GET',
+            url: '/v1/threats'
+        });
+        expect(response.statusCode).toBe(200);
+        const body = JSON.parse(response.payload);
+        expect(body.threats).toBeDefined();
+        expect(body.stats).toBeDefined();
+        expect(typeof body.stats.totalSignatures).toBe('number');
     });
 });

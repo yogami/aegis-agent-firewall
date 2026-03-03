@@ -19,8 +19,8 @@ test.describe('SemaProof Hybrid Guardrail — Production E2E', () => {
         test('GET /v1/policy returns 7 deterministic rules', async ({ request }) => {
             const res = await request.get('/v1/policy');
             const body = await res.json();
-            expect(body.version).toBe('1.0.0');
-            expect(body.rules).toHaveLength(7);
+            expect(body.version).toBe('1.1.0');
+            expect(body.rules).toHaveLength(9);
         });
 
         test('GET /v1/guardians returns 5 heterogeneous models', async ({ request }) => {
@@ -126,6 +126,34 @@ test.describe('SemaProof Hybrid Guardrail — Production E2E', () => {
         test('GET /v1/logs returns audit log entries', async ({ request }) => {
             const res = await request.get('/v1/logs');
             expect(res.ok()).toBe(true);
+        });
+    });
+
+    test.describe('Layer 1: Semantic Smuggling & Obfuscation Detection', () => {
+        test('blocks deeply nested payloads (SEMANTIC_SMUGGLING)', async ({ request }) => {
+            const res = await request.post('/v1/execute', {
+                headers: JSON_HEADERS,
+                data: {
+                    method: 'GET', endpoint: '/api/data',
+                    body: { a: { b: { c: { d: { e: { f: 'deep' } } } } } }
+                }
+            });
+            expect(res.status()).toBe(403);
+            const body = await res.json();
+            expect(body.rule).toBe('SEMANTIC_SMUGGLING');
+        });
+
+        test('blocks base64/eval obfuscation patterns (OBFUSCATION_DETECTED)', async ({ request }) => {
+            const res = await request.post('/v1/execute', {
+                headers: JSON_HEADERS,
+                data: {
+                    method: 'GET', endpoint: '/api/data',
+                    body: { command: 'eval(decode_base64(payload))' }
+                }
+            });
+            expect(res.status()).toBe(403);
+            const body = await res.json();
+            expect(body.rule).toBe('OBFUSCATION_DETECTED');
         });
     });
 });

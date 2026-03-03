@@ -3,8 +3,10 @@ node_modules/
 dist/
 target/
 pkg/
-backend/pkg/
-frontend/.next/
-frontend/out/
 *.log
+*.map
+*.d.ts
+*.d.ts.map
 .DS_Store
+coverage/
+test-results/
