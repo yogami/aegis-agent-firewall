@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["stdenv", "gcc", "nodejs-18_x"]
+nixPkgs = ["stdenv", "gcc", "clang", "llvmPackages.bintools", "nodejs-18_x"]
 cmds = [
     "curl https://sh.rustup.rs -sSf | sh -s -- -y",
     "source $HOME/.cargo/env",
