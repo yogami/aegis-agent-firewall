@@ -91,13 +91,37 @@ const handleRejection = (decision, guardianId) => {
     return { safe: false, signatureShard: null, reason: "Semantic Evaluation failed / SLM Rejected." };
 };
 
-const generateSignatureShard = (payload, keyShard, publicKey, guardianId) => {
+let rustSignerAvailable = false;
+let SemaProofSigner;
+
+// Dynamic load of the Rust/WASM Core (Deep Tech Pivot)
+const loadRustCore = async () => {
+    try {
+        const pkg = await import('./pkg/semaproof_bls_engine.js');
+        SemaProofSigner = pkg.SemaProofSigner;
+        rustSignerAvailable = true;
+        console.log("[CRYPTO] 🦀 Rust BLS Core successfully initialized (WASM Bridge).");
+    } catch (e) {
+        console.warn("[CRYPTO] ⚠️  Rust BLS Core missing or failed to load. Falling back to noble-js.");
+    }
+};
+
+loadRustCore();
+
+const generateSignatureShard = (payload, keyShard, publicKey, guardianId, rustSigner) => {
     console.log(`[${guardianId}] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.`);
+
+    if (rustSignerAvailable && rustSigner) {
+        // High-Veracity Path: Use the Hardware-Attested Rust Logic
+        const signatureHex = rustSigner.sign_intent(JSON.stringify(payload));
+        return { safe: true, guardianId, signatureShard: signatureHex, publicKey };
+    }
+
+    // Fallback Path: Pure JS (Noble-JS)
     const messageBytes = crypto.createHash('sha256').update(JSON.stringify(payload)).digest();
     const curveMessage = bls12_381.shortSignatures.hash(messageBytes);
     const signature = bls12_381.shortSignatures.sign(curveMessage, keyShard);
 
-    // Support both native Node Execution (Uint8Array) and Jest VM-Modules (Point instances)
     const speculativeShard = typeof signature.toHex === 'function' ? signature.toHex() : Buffer.from(signature).toString('hex');
 
     return {
@@ -114,6 +138,11 @@ export class VirtualGuardian {
         this.modelId = id;
         this.keyShard = bls12_381.utils.randomSecretKey();
         this.publicKey = bls12_381.getPublicKey ? bls12_381.getPublicKey(this.keyShard) : bls12_381.shortSignatures.getPublicKey(this.keyShard);
+
+        // Prepare Rust-based signer if possible
+        if (rustSignerAvailable) {
+            this.rustSigner = new SemaProofSigner(this.keyShard);
+        }
     }
 
     async evaluatePayload(payload, signal, requestHeaders) {
@@ -136,7 +165,11 @@ export class VirtualGuardian {
         const decision = await fetchSLMDecision(prompt, signal, this.modelId);
 
         if (decision === "SAFE") {
-            const shardHex = generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId);
+            // Priority: Attempt to use the Rust signer associated with this node
+            if (!this.rustSigner && rustSignerAvailable) {
+                this.rustSigner = new SemaProofSigner(this.keyShard);
+            }
+            const shardHex = generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId, this.rustSigner);
             semanticCache.set(payloadHash, { shardHex, timestamp: Date.now() });
             return shardHex;
         }

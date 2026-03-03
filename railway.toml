@@ -2,11 +2,19 @@
 builder = "NIXPACKS"
 watchPatterns = ["backend/**"]
 
+[build.nixpacksPlan.phases.setup]
+# Install Rust toolchain and wasm-pack for the Deep Tech BLS Core
+cmds = ["curl https://sh.rustup.rs -sSf | sh -s -- -y", "source $HOME/.cargo/env", "curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh"]
+
 [build.nixpacksPlan.phases.install]
 cmds = ["cd backend && npm install"]
 
 [build.nixpacksPlan.phases.build]
-cmds = ["echo 'JS backend — no build step required'"]
+# Compile the Rust BLS Engine to WebAssembly
+cmds = [
+    "source $HOME/.cargo/env",
+    "cd backend/rust-bls-engine && wasm-pack build --target nodejs --out-dir ../src/pkg"
+]
 
 [deploy]
 startCommand = "cd backend && npm run start"
