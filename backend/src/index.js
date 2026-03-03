@@ -7,8 +7,14 @@ import crypto from 'crypto';
 import { bls12_381 } from '@noble/curves/bls12-381.js';
 import sjson from 'secure-json-parse';
 import { logBlockedTransaction } from './auditLogger.js';
+import { evaluatePolicy, getPolicyManifest } from './opa-gate.js';
+import { loadThreatStore, getThreats, getThreatStats } from './threat-store.js';
+import { GUARDIAN_MODELS } from './guardian.js';
 
-process.env.OPENROUTER_API_KEY = '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';
+if (!process.env.OPENROUTER_API_KEY) {
+    console.error('FATAL: OPENROUTER_API_KEY env var is required. Set it in Railway or .env');
+    process.exit(1);
+}
 
 const platformGuardians = [
     new VirtualGuardian(1), new VirtualGuardian(2),
@@ -64,7 +70,7 @@ await server.register(rateLimit, {
     errorResponseBuilder: () => ({
         statusCode: 429,
         error: 'Too Many Requests',
-        message: `Aegis Layer 7 Defense: FROST Cryptographic Nonce Buffer protection triggered.`
+        message: `SemaProof Layer 7 Defense: Cryptographic Nonce Buffer protection triggered.`
     })
 });
 
@@ -74,14 +80,30 @@ let activeSystemState = {
     public_access: false
 };
 
-server.get('/health', async () => ({ status: 'ok', mpc_nodes_active: 5 }));
+server.get('/health', async () => ({
+    status: 'ok',
+    mpc_nodes_active: 5,
+    layers: ['OPA_DETERMINISTIC', 'SLM_QUORUM', 'BLS_CRYPTO'],
+    threatStore: getThreatStats()
+}));
 server.get('/state', async () => activeSystemState);
+server.get('/v1/threats', async () => ({ threats: getThreats(), stats: getThreatStats() }));
+server.get('/v1/guardians', async () => ({ guardians: GUARDIAN_MODELS }));
+server.get('/v1/metrics', async () => ({
+    layers: [
+        { id: 'OPA', type: 'Deterministic', latency: '<1ms' },
+        { id: 'SLM', type: 'Probabilistic', models: GUARDIAN_MODELS.length, threshold: '3-of-5' },
+        { id: 'BLS', type: 'Cryptographic', curve: 'BLS12-381' }
+    ],
+    threatStore: getThreatStats(),
+    policy: getPolicyManifest()
+}));
 
 server.get('/v1/logs', async (request, reply) => {
     try {
         const fs = await import('fs');
         const path = await import('path');
-        const logPath = path.resolve(process.cwd(), 'aegis_audit.log');
+        const logPath = path.resolve(process.cwd(), 'semaproof_audit.log');
 
         if (!fs.existsSync(logPath)) {
             return reply.send([]);
@@ -104,7 +126,7 @@ server.get('/v1/logs', async (request, reply) => {
 
 async function buildQuorumPromise(payload, signal) {
     const guardianPromises = platformGuardians.map(g =>
-        g.evaluatePayload(payload, signal, { authorization: 'Bearer aegis-agent-token-v1' })
+        g.evaluatePayload(payload, signal, { authorization: 'Bearer semaproof-agent-token-v1' })
             .then(res => ({ status: 'fulfilled', value: res }))
             .catch(err => ({ status: 'rejected', reason: err }))
     );
@@ -190,7 +212,7 @@ async function executeTransaction(request, reply) {
         return reply.status(403).send({
             status: 'rejected',
             request_id: requestId,
-            message: 'Transaction blocked by Aegis MPC Network',
+            message: 'Transaction blocked by SemaProof MPC Network',
             threshold_met: false,
             approvals: (consensus.responses || []).length,
             rejections: consensus.reasons
@@ -223,18 +245,46 @@ async function executeTransaction(request, reply) {
 }
 
 server.post('/v1/execute', async (request, reply) => {
-    if (request.headers.authorization !== 'Bearer aegis-agent-token-v1') {
+    if (request.headers.authorization !== 'Bearer semaproof-agent-token-v1') {
         return reply.status(401).send({ success: false, error: 'Unauthorized: Agent DID/Token missing' });
     }
     server.log.info(`[INGRESS] Received execution intent for ${request.body.method}`);
+
+    // Layer 1: Deterministic OPA Gate (sub-1ms)
+    const opaDecision = evaluatePolicy(request.body, {
+        environment: process.env.NODE_ENV || 'production',
+        agentTier: request.headers['x-agent-tier'] || 'T2'
+    });
+
+    if (!opaDecision.allow) {
+        server.log.warn(`[OPA GATE] BLOCKED by rule ${opaDecision.rule}: ${opaDecision.reason}`);
+        logBlockedTransaction(crypto.randomUUID(), request.body, [opaDecision.reason], 'OPA_DETERMINISTIC').catch(console.error);
+        return reply.status(403).send({
+            status: 'rejected',
+            layer: 'OPA_DETERMINISTIC',
+            rule: opaDecision.rule,
+            reason: opaDecision.reason,
+            evaluationMs: opaDecision.evaluationMs,
+            message: 'Transaction blocked by SemaProof Deterministic Policy Gate (Layer 1)'
+        });
+    }
+
+    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Forwarding to SLM Quorum.`);
+
+    // Layer 2 + 3: SLM Quorum + BLS Crypto
     return await executeTransaction(request, reply);
 });
 
+server.get('/v1/policy', async () => getPolicyManifest());
+
 async function start() {
     try {
+        // Warm-boot: load threat signatures from disk
+        loadThreatStore();
+
         const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
         await server.listen({ port, host: '0.0.0.0' });
-        console.log(`AEGIS Gateway listening on port ${port}`);
+        console.log(`SemaProof Hybrid Guardrail Gateway listening on port ${port}`);
     } catch (err) {
         server.log.error(err);
         process.exit(1);
