@@ -191,10 +191,32 @@ function getMasterSignatureHash(responses, payload) {
     return finalHex;
 }
 
+const globalConsensusCache = new Map();
+const GLOBAL_CACHE_TTL = 300000; // 5 minutes
+
+function clearGlobalCache() {
+    globalConsensusCache.clear();
+    evictGlobalSemanticCache();
+}
+
 async function executeTransaction(request, reply) {
     const payload = request.body;
     const abortController = new AbortController();
     const requestId = crypto.randomUUID();
+
+    // Global Fast-Path (Flywheel)
+    const payloadKey = crypto.createHash('sha256').update(JSON.stringify(payload)).digest('hex');
+    if (globalConsensusCache.has(payloadKey)) {
+        const cached = globalConsensusCache.get(payloadKey);
+        if (Date.now() - cached.timestamp < GLOBAL_CACHE_TTL) {
+            server.log.info(`[FAST-PATH] ⚡ Cache hit for payload ${payloadKey}. Bypassing SLM Quorum.`);
+            return reply.status(200).send({
+                ...cached.response,
+                request_id: requestId,
+                message: 'Transaction authorized via Fast-Path Cache'
+            });
+        }
+    }
 
     const timeoutPromise = new Promise(resolve => {
         setTimeout(() => {
@@ -206,7 +228,6 @@ async function executeTransaction(request, reply) {
     const consensus = await Promise.race([buildQuorumPromise(payload, abortController.signal), timeoutPromise]);
 
     if (!consensus.success) {
-        // Fire-and-forget background execution for EU Explainability Logic
         logBlockedTransaction(requestId, payload, consensus.reasons).catch(console.error);
 
         return reply.status(403).send({
@@ -222,21 +243,24 @@ async function executeTransaction(request, reply) {
     try {
         const masterSignatureHex = getMasterSignatureHash(consensus.responses, payload);
 
-        if (payload.method === 'PUT' && payload.endpoint.includes('/config')) {
-            activeSystemState = { ...activeSystemState, ...payload.body };
-            evictGlobalSemanticCache();
-        }
-
-        return reply.status(200).send({
+        const response = {
             status: 'success',
-            request_id: requestId,
-            message: 'Transaction authorized',
             threshold_met: true,
             optimistic_aggregation_ms: 'sub-100',
             approvals: consensus.responses.length,
             master_signature_hash: masterSignatureHex,
             resulting_state: activeSystemState
-        });
+        };
+
+        // Cache the safe consensus
+        globalConsensusCache.set(payloadKey, { response, timestamp: Date.now() });
+
+        if (payload.method === 'PUT' && payload.endpoint.includes('/config')) {
+            activeSystemState = { ...activeSystemState, ...payload.body };
+            clearGlobalCache();
+        }
+
+        return reply.status(200).send({ ...response, request_id: requestId, message: 'Transaction authorized' });
 
     } catch (error) {
         server.log.error(error);
@@ -269,7 +293,7 @@ server.post('/v1/execute', async (request, reply) => {
         });
     }
 
-    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Forwarding to SLM Quorum.`);
+    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Checking Fast-Path / Quorum.`);
 
     // Layer 2 + 3: SLM Quorum + BLS Crypto
     return await executeTransaction(request, reply);

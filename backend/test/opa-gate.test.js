@@ -128,11 +128,27 @@ describe('OPA Gate — Deterministic Policy Evaluator', () => {
         });
     });
 
+    describe('Rule: SEMANTIC_SMUGGLING & OBFUSCATION', () => {
+        it('blocks deeply nested payloads (MAX_DEPTH=5)', () => {
+            const nested = { a: { b: { c: { d: { e: { f: 'BOOM' } } } } } };
+            const res = evaluatePolicy({ method: 'GET', endpoint: '/safe', body: nested });
+            expect(res.allow).toBe(false);
+            expect(res.rule).toBe('SEMANTIC_SMUGGLING');
+        });
+
+        it('blocks base64/eval patterns', () => {
+            const mal = { method: 'POST', endpoint: '/safe', body: { code: 'eval("inject")' } };
+            const res = evaluatePolicy(mal);
+            expect(res.allow).toBe(false);
+            expect(res.rule).toBe('OBFUSCATION_DETECTED');
+        });
+    });
+
     describe('Policy Manifest', () => {
-        it('returns all 7 rules', () => {
+        it('returns all 9 rules', () => {
             const manifest = getPolicyManifest();
-            expect(manifest.rules).toHaveLength(7);
-            expect(manifest.version).toBe('1.0.0');
+            expect(manifest.rules).toHaveLength(9);
+            expect(manifest.version).toBe('1.1.0');
         });
     });
 

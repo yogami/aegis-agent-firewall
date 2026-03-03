@@ -8,14 +8,14 @@ cmds = [
 
 [phases.install]
 dependsOn = ["setup"]
-cmds = ["cd backend && npm install"]
+cmds = ["npm install"]
 
 [phases.build]
 dependsOn = ["install"]
 cmds = [
     "source $HOME/.cargo/env",
-    "cd backend/rust-bls-engine && wasm-pack build --target nodejs --out-dir ../src/pkg"
+    "cd rust-bls-engine && wasm-pack build --target nodejs --out-dir ../src/pkg"
 ]
 
 [start]
-cmd = "cd backend && npm run start"
+cmd = "npm run start"

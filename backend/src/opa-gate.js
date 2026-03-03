@@ -8,6 +8,7 @@
  */
 
 const BODY_SIZE_LIMIT = 8192;
+const MAX_DEPTH = 5;
 
 const BLOCKED_ENDPOINTS = [
     '/iam/roles/root',
@@ -102,7 +103,32 @@ function checkRansomwareSignature(payload, start) {
     return null;
 }
 
-/** Rule 7: Agent tier restrictions */
+/** Helper: check object depth */
+function getDepth(obj) {
+    if (!obj || typeof obj !== 'object') return 0;
+    const depths = Object.values(obj).map(v => getDepth(v));
+    return 1 + (depths.length > 0 ? Math.max(...depths) : 0);
+}
+
+/** Rule 7: Semantic Smuggling (Depth and Obfuscation) */
+function checkSemanticSmuggling(payload, start) {
+    // Check recursion depth
+    if (getDepth(payload) > MAX_DEPTH) {
+        return deny('SEMANTIC_SMUGGLING', `Payload depth exceeds limit of ${MAX_DEPTH}. Possible recursive embedding attack.`, start);
+    }
+
+    // Check for suspicious encoding patterns in strings
+    const strPayload = JSON.stringify(payload).toLowerCase();
+    const hasObfuscation = strPayload.includes('base64') || strPayload.includes('eval(') || strPayload.includes('unescape(');
+
+    if (hasObfuscation) {
+        return deny('OBFUSCATION_DETECTED', 'Detected base64 or script injection patterns. Anti-obfuscation trigger.', start);
+    }
+
+    return null;
+}
+
+/** Rule 8: Agent tier restrictions */
 function checkTierRestriction(payload, options, start) {
     if (options.agentTier === 'T1' && payload.method.toUpperCase() !== 'GET') {
         return deny('TIER_RESTRICTION', 'T1 agents are restricted to read-only (GET) operations.', start);
@@ -134,6 +160,7 @@ export function evaluatePolicy(payload, options = {}) {
         () => checkDestructiveMethod(payload, env, start),
         () => checkDataResidency(payload, start),
         () => checkRansomwareSignature(payload, start),
+        () => checkSemanticSmuggling(payload, start),
         () => checkTierRestriction(payload, options, start),
     ];
 
@@ -145,7 +172,7 @@ export function evaluatePolicy(payload, options = {}) {
  */
 export function getPolicyManifest() {
     return {
-        version: '1.0.0',
+        version: '1.1.0',
         engine: 'SemaProof OPA Gate (Deterministic)',
         rules: [
             { id: 'PAYLOAD_SIZE', description: `Payload must be under ${BODY_SIZE_LIMIT} bytes`, type: 'anti-smuggling' },
@@ -154,6 +181,8 @@ export function getPolicyManifest() {
             { id: 'DESTRUCTIVE_METHOD', description: 'DELETE/TRUNCATE/DROP blocked on production', type: 'environment' },
             { id: 'DATA_RESIDENCY', description: 'EU sovereign data residency enforcement', type: 'compliance' },
             { id: 'RANSOMWARE_SIGNATURE', description: 'KMS rotation + snapshot drop combo detection', type: 'threat-detection' },
+            { id: 'SEMANTIC_SMUGGLING', description: `Nesting depth limit: ${MAX_DEPTH}`, type: 'anti-evasion' },
+            { id: 'OBFUSCATION_DETECTED', description: 'Base64/eval pattern detection', type: 'anti-obfuscation' },
             { id: 'TIER_RESTRICTION', description: 'T1 agents limited to GET requests', type: 'rbac' },
         ],
         blockedEndpoints: BLOCKED_ENDPOINTS,

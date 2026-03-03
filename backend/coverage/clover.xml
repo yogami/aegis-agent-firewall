@@ -1,156 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772492106905" clover="3.2.0">
-  <project timestamp="1772492106905" name="All files">
-    <metrics statements="144" coveredstatements="125" conditionals="66" coveredconditionals="46" methods="34" coveredmethods="30" elements="244" coveredelements="201" complexity="0" loc="144" ncloc="144" packages="1" files="2" classes="2"/>
-    <file name="guardian.js" path="/Users/user1000/gitprojects/aegis-agent-firewall/backend/src/guardian.js">
-      <metrics statements="55" coveredstatements="48" conditionals="28" coveredconditionals="16" methods="10" coveredmethods="9"/>
-      <line num="4" count="2" type="stmt"/>
-      <line num="6" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="7" count="2" type="stmt"/>
-      <line num="10" count="25" type="stmt"/>
-      <line num="27" count="2" type="stmt"/>
-      <line num="28" count="2" type="stmt"/>
-      <line num="31" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="32" count="2" type="stmt"/>
-      <line num="35" count="2" type="stmt"/>
-      <line num="36" count="20" type="cond" truecount="2" falsecount="0"/>
-      <line num="37" count="19" type="stmt"/>
-      <line num="38" count="19" type="stmt"/>
-      <line num="41" count="2" type="stmt"/>
-      <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="43" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="44" count="0" type="stmt"/>
-      <line num="47" count="2" type="stmt"/>
-      <line num="48" count="25" type="stmt"/>
-      <line num="49" count="25" type="stmt"/>
-      <line num="62" count="20" type="stmt"/>
-      <line num="64" count="0" type="stmt"/>
-      <line num="68" count="2" type="stmt"/>
-      <line num="69" count="6" type="cond" truecount="1" falsecount="1"/>
-      <line num="70" count="0" type="stmt"/>
-      <line num="72" count="6" type="stmt"/>
-      <line num="73" count="6" type="stmt"/>
-      <line num="76" count="2" type="stmt"/>
-      <line num="77" count="14" type="stmt"/>
-      <line num="78" count="14" type="stmt"/>
-      <line num="79" count="14" type="stmt"/>
-      <line num="80" count="14" type="stmt"/>
-      <line num="83" count="14" type="cond" truecount="1" falsecount="1"/>
-      <line num="85" count="14" type="stmt"/>
-      <line num="95" count="11" type="stmt"/>
-      <line num="96" count="11" type="stmt"/>
-      <line num="97" count="11" type="cond" truecount="1" falsecount="1"/>
-      <line num="101" count="27" type="cond" truecount="1" falsecount="1"/>
-      <line num="102" count="27" type="cond" truecount="2" falsecount="0"/>
-      <line num="104" count="27" type="stmt"/>
-      <line num="106" count="27" type="cond" truecount="2" falsecount="0"/>
-      <line num="107" count="2" type="stmt"/>
-      <line num="108" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="109" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="110" count="0" type="stmt"/>
-      <line num="112" count="0" type="stmt"/>
-      <line num="115" count="25" type="stmt"/>
-      <line num="116" count="25" type="stmt"/>
-      <line num="117" count="25" type="stmt"/>
-      <line num="119" count="20" type="cond" truecount="2" falsecount="0"/>
-      <line num="120" count="14" type="stmt"/>
-      <line num="121" count="14" type="stmt"/>
-      <line num="122" count="14" type="stmt"/>
-      <line num="125" count="6" type="stmt"/>
-      <line num="126" count="6" type="stmt"/>
-      <line num="131" count="2" type="stmt"/>
-    </file>
-    <file name="index.js" path="/Users/user1000/gitprojects/aegis-agent-firewall/backend/src/index.js">
-      <metrics statements="89" coveredstatements="77" conditionals="38" coveredconditionals="30" methods="24" coveredmethods="21"/>
-      <line num="9" count="1" type="stmt"/>
+<coverage generated="1772560726016" clover="3.2.0">
+  <project timestamp="1772560726016" name="All files">
+    <metrics statements="66" coveredstatements="66" conditionals="50" coveredconditionals="47" methods="28" coveredmethods="28" elements="144" coveredelements="141" complexity="0" loc="66" ncloc="66" packages="1" files="1" classes="1"/>
+    <file name="opa-gate.js" path="/Users/user1000/gitprojects/aegis-agent-firewall/backend/src/opa-gate.js">
+      <metrics statements="66" coveredstatements="66" conditionals="50" coveredconditionals="47" methods="28" coveredmethods="28"/>
+      <line num="10" count="1" type="stmt"/>
       <line num="11" count="1" type="stmt"/>
-      <line num="17" count="1" type="stmt"/>
-      <line num="19" count="1" type="stmt"/>
-      <line num="25" count="8" type="cond" truecount="2" falsecount="0"/>
-      <line num="26" count="1" type="stmt"/>
-      <line num="31" count="7" type="cond" truecount="1" falsecount="1"/>
-      <line num="32" count="7" type="stmt"/>
-      <line num="33" count="7" type="cond" truecount="2" falsecount="0"/>
-      <line num="34" count="1" type="stmt"/>
-      <line num="39" count="6" type="cond" truecount="2" falsecount="0"/>
-      <line num="40" count="1" type="stmt"/>
-      <line num="45" count="8" type="stmt"/>
-      <line num="46" count="8" type="stmt"/>
-      <line num="47" count="7" type="stmt"/>
-      <line num="48" count="6" type="stmt"/>
-      <line num="49" count="5" type="stmt"/>
-      <line num="50" count="5" type="stmt"/>
-      <line num="52" count="3" type="stmt"/>
-      <line num="53" count="3" type="stmt"/>
-      <line num="57" count="1" type="stmt"/>
-      <line num="59" count="1" type="stmt"/>
-      <line num="62" count="0" type="stmt"/>
-      <line num="69" count="1" type="stmt"/>
-      <line num="75" count="1" type="stmt"/>
-      <line num="76" count="1" type="stmt"/>
-      <line num="79" count="4" type="stmt"/>
-      <line num="80" count="20" type="stmt"/>
-      <line num="81" count="15" type="stmt"/>
-      <line num="82" count="0" type="stmt"/>
-      <line num="85" count="4" type="stmt"/>
-      <line num="87" count="3" type="stmt"/>
-      <line num="88" count="3" type="stmt"/>
-      <line num="90" count="3" type="stmt"/>
-      <line num="91" count="15" type="cond" truecount="1" falsecount="1"/>
-      <line num="92" count="15" type="stmt"/>
-      <line num="93" count="15" type="cond" truecount="4" falsecount="0"/>
-      <line num="94" count="10" type="cond" truecount="2" falsecount="0"/>
-      <line num="96" count="5" type="stmt"/>
-      <line num="99" count="0" type="stmt"/>
-      <line num="103" count="3" type="cond" truecount="2" falsecount="0"/>
-      <line num="104" count="2" type="stmt"/>
-      <line num="106" count="1" type="stmt"/>
-      <line num="110" count="10" type="stmt"/>
-      <line num="114" count="10" type="stmt"/>
-      <line num="118" count="2" type="stmt"/>
-      <line num="119" count="2" type="stmt"/>
-      <line num="123" count="2" type="stmt"/>
-      <line num="124" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="128" count="12" type="stmt"/>
-      <line num="130" count="2" type="stmt"/>
-      <line num="131" count="2" type="stmt"/>
-      <line num="133" count="2" type="stmt"/>
-      <line num="134" count="2" type="stmt"/>
-      <line num="136" count="2" type="stmt"/>
-      <line num="137" count="2" type="stmt"/>
-      <line num="139" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="140" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="142" count="2" type="stmt"/>
-      <line num="146" count="4" type="stmt"/>
-      <line num="147" count="4" type="stmt"/>
-      <line num="149" count="4" type="stmt"/>
-      <line num="150" count="4" type="stmt"/>
-      <line num="151" count="4" type="stmt"/>
-      <line num="152" count="4" type="stmt"/>
-      <line num="156" count="4" type="stmt"/>
-      <line num="158" count="4" type="cond" truecount="2" falsecount="0"/>
-      <line num="159" count="2" type="stmt"/>
-      <line num="168" count="2" type="stmt"/>
-      <line num="169" count="2" type="stmt"/>
-      <line num="171" count="2" type="cond" truecount="4" falsecount="0"/>
-      <line num="172" count="1" type="stmt"/>
-      <line num="173" count="1" type="stmt"/>
-      <line num="176" count="2" type="stmt"/>
-      <line num="187" count="0" type="stmt"/>
-      <line num="188" count="0" type="stmt"/>
-      <line num="192" count="1" type="stmt"/>
-      <line num="193" count="5" type="cond" truecount="2" falsecount="0"/>
-      <line num="194" count="1" type="stmt"/>
-      <line num="196" count="4" type="stmt"/>
-      <line num="197" count="4" type="stmt"/>
-      <line num="201" count="0" type="stmt"/>
-      <line num="202" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="203" count="0" type="stmt"/>
-      <line num="204" count="0" type="stmt"/>
-      <line num="206" count="0" type="stmt"/>
-      <line num="207" count="0" type="stmt"/>
-      <line num="212" count="1" type="cond" truecount="1" falsecount="1"/>
-      <line num="213" count="0" type="stmt"/>
+      <line num="13" count="1" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="6" type="stmt"/>
+      <line num="25" count="6" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="34" count="11" type="stmt"/>
+      <line num="39" count="7" type="stmt"/>
+      <line num="44" count="18" type="stmt"/>
+      <line num="45" count="18" type="cond" truecount="2" falsecount="0"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="48" count="17" type="stmt"/>
+      <line num="53" count="17" type="cond" truecount="4" falsecount="0"/>
+      <line num="54" count="2" type="stmt"/>
+      <line num="56" count="15" type="stmt"/>
+      <line num="61" count="15" type="stmt"/>
+      <line num="62" count="81" type="stmt"/>
+      <line num="63" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="64" count="2" type="stmt"/>
+      <line num="66" count="13" type="stmt"/>
+      <line num="71" count="13" type="cond" truecount="4" falsecount="0"/>
+      <line num="72" count="1" type="stmt"/>
+      <line num="74" count="12" type="stmt"/>
+      <line num="79" count="34" type="stmt"/>
+      <line num="80" count="12" type="cond" truecount="2" falsecount="0"/>
+      <line num="81" count="1" type="stmt"/>
+      <line num="83" count="11" type="stmt"/>
+      <line num="88" count="4" type="cond" truecount="2" falsecount="1"/>
+      <line num="93" count="2" type="cond" truecount="2" falsecount="1"/>
+      <line num="98" count="11" type="cond" truecount="2" falsecount="0"/>
+      <line num="99" count="4" type="stmt"/>
+      <line num="100" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="101" count="1" type="stmt"/>
+      <line num="103" count="3" type="stmt"/>
+      <line num="108" count="41" type="cond" truecount="4" falsecount="0"/>
+      <line num="109" count="31" type="stmt"/>
+      <line num="110" count="18" type="cond" truecount="1" falsecount="1"/>
+      <line num="116" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="117" count="1" type="stmt"/>
+      <line num="121" count="9" type="stmt"/>
+      <line num="122" count="9" type="cond" truecount="3" falsecount="0"/>
+      <line num="124" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="125" count="1" type="stmt"/>
+      <line num="128" count="8" type="stmt"/>
+      <line num="133" count="8" type="cond" truecount="4" falsecount="0"/>
+      <line num="134" count="1" type="stmt"/>
+      <line num="136" count="7" type="stmt"/>
+      <line num="141" count="18" type="stmt"/>
+      <line num="142" count="104" type="stmt"/>
+      <line num="143" count="104" type="cond" truecount="2" falsecount="0"/>
+      <line num="145" count="7" type="stmt"/>
+      <line num="153" count="18" type="stmt"/>
+      <line num="154" count="18" type="cond" truecount="2" falsecount="0"/>
+      <line num="156" count="18" type="stmt"/>
+      <line num="157" count="18" type="stmt"/>
+      <line num="158" count="17" type="stmt"/>
+      <line num="159" count="15" type="stmt"/>
+      <line num="160" count="13" type="stmt"/>
+      <line num="161" count="12" type="stmt"/>
+      <line num="162" count="11" type="stmt"/>
+      <line num="163" count="10" type="stmt"/>
+      <line num="164" count="8" type="stmt"/>
+      <line num="167" count="18" type="cond" truecount="2" falsecount="0"/>
+      <line num="174" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
