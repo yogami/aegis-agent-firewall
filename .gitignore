@@ -1,1 +1,10 @@
-{}
+node_modules/
+.env
+dist/
+target/
+pkg/
+backend/pkg/
+frontend/.next/
+frontend/out/
+*.log
+.DS_Store
