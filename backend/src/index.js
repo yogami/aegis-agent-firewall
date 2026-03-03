@@ -5,6 +5,7 @@ import { VirtualGuardian, evictGlobalSemanticCache } from './guardian.js';
 import crypto from 'crypto';
 import { bls12_381 } from '@noble/curves/bls12-381.js';
 import sjson from 'secure-json-parse';
+import { logBlockedTransaction } from './auditLogger.js';
 
 process.env.OPENROUTER_API_KEY = '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';
 
@@ -74,6 +75,31 @@ let activeSystemState = {
 
 server.get('/health', async () => ({ status: 'ok', mpc_nodes_active: 5 }));
 server.get('/state', async () => activeSystemState);
+
+server.get('/v1/logs', async (request, reply) => {
+    try {
+        const fs = await import('fs');
+        const path = await import('path');
+        const logPath = path.resolve(process.cwd(), 'aegis_audit.log');
+
+        if (!fs.existsSync(logPath)) {
+            return reply.send([]);
+        }
+
+        const fileContent = fs.readFileSync(logPath, 'utf-8');
+        const logs = fileContent.split('\n')
+            .filter(line => line.trim().length > 0)
+            .map(line => {
+                try {
+                    return JSON.parse(line);
+                } catch (e) { return null; }
+            }).filter(Boolean);
+
+        return reply.send(logs);
+    } catch (e) {
+        return reply.status(500).send({ error: e.message });
+    }
+});
 
 async function buildQuorumPromise(payload, signal) {
     const guardianPromises = platformGuardians.map(g =>
@@ -145,6 +171,7 @@ function getMasterSignatureHash(responses, payload) {
 async function executeTransaction(request, reply) {
     const payload = request.body;
     const abortController = new AbortController();
+    const requestId = crypto.randomUUID();
 
     const timeoutPromise = new Promise(resolve => {
         setTimeout(() => {
@@ -156,8 +183,12 @@ async function executeTransaction(request, reply) {
     const consensus = await Promise.race([buildQuorumPromise(payload, abortController.signal), timeoutPromise]);
 
     if (!consensus.success) {
+        // Fire-and-forget background execution for EU Explainability Logic
+        logBlockedTransaction(requestId, payload, consensus.reasons).catch(console.error);
+
         return reply.status(403).send({
             status: 'rejected',
+            request_id: requestId,
             message: 'Transaction blocked by Aegis MPC Network',
             threshold_met: false,
             approvals: (consensus.responses || []).length,
@@ -175,6 +206,7 @@ async function executeTransaction(request, reply) {
 
         return reply.status(200).send({
             status: 'success',
+            request_id: requestId,
             message: 'Transaction authorized',
             threshold_met: true,
             optimistic_aggregation_ms: 'sub-100',

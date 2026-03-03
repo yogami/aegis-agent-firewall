@@ -2631,3 +2631,200 @@ AEGIS Gateway listening on port 8080
 {"level":30,"time":1772492926528,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cs","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":48148},"msg":"incoming request"}
 {"level":30,"time":1772492926529,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cs","msg":"Route GET:/ not found"}
 {"level":30,"time":1772492926530,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cs","res":{"statusCode":404},"responseTime":1.1389589309692383,"msg":"request completed"}
+{"level":30,"time":1772493613844,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ct","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"45.156.87.91","remotePort":41856},"msg":"incoming request"}
+{"level":30,"time":1772493613845,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ct","msg":"Route GET:/login not found"}
+{"level":30,"time":1772493613846,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ct","res":{"statusCode":404},"responseTime":1.2652499675750732,"msg":"request completed"}
+{"level":30,"time":1772494354762,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cu","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":33552},"msg":"incoming request"}
+{"level":30,"time":1772494354762,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cu","msg":"Route GET:/ not found"}
+{"level":30,"time":1772494354763,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cu","res":{"statusCode":404},"responseTime":1.2716249227523804,"msg":"request completed"}
+{"level":30,"time":1772495610925,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cv","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":45564},"msg":"incoming request"}
+{"level":30,"time":1772495610926,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cv","msg":"Route GET:/ not found"}
+{"level":30,"time":1772495610930,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cv","res":{"statusCode":404},"responseTime":4.723749995231628,"msg":"request completed"}
+{"level":30,"time":1772495637389,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cw","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"193.142.146.230","remotePort":33800},"msg":"incoming request"}
+{"level":30,"time":1772495637389,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cw","msg":"Route GET:/login not found"}
+{"level":30,"time":1772495637389,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cw","res":{"statusCode":404},"responseTime":0.5221669673919678,"msg":"request completed"}
+{"level":30,"time":1772495905320,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cx","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":53782},"msg":"incoming request"}
+{"level":30,"time":1772495905320,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cx","msg":"Route GET:/ not found"}
+{"level":30,"time":1772495905321,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cx","res":{"statusCode":404},"responseTime":0.7766249179840088,"msg":"request completed"}
+{"level":30,"time":1772496980546,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cy","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.166.73","remotePort":37470},"msg":"incoming request"}
+{"level":30,"time":1772496980547,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cy","msg":"Route GET:/login not found"}
+{"level":30,"time":1772496980548,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cy","res":{"statusCode":404},"responseTime":1.059000015258789,"msg":"request completed"}
+{"level":30,"time":1772497511322,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cz","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":52702},"msg":"incoming request"}
+{"level":30,"time":1772497511323,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cz","msg":"Route GET:/ not found"}
+{"level":30,"time":1772497511324,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-cz","res":{"statusCode":404},"responseTime":1.8364170789718628,"msg":"request completed"}
+{"level":30,"time":1772497912165,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d0","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"206.168.34.122","remotePort":58076},"msg":"incoming request"}
+{"level":30,"time":1772497912166,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d0","msg":"Route GET:/ not found"}
+{"level":30,"time":1772497912167,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d0","res":{"statusCode":404},"responseTime":1.1837079524993896,"msg":"request completed"}
+{"level":30,"time":1772497926166,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d1","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"206.168.34.122","remotePort":15616},"msg":"incoming request"}
+{"level":30,"time":1772497926166,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d1","msg":"Route GET:/ not found"}
+{"level":30,"time":1772497926167,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d1","res":{"statusCode":404},"responseTime":0.8103749752044678,"msg":"request completed"}
+{"level":30,"time":1772497937480,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d2","req":{"method":"GET","url":"/security.txt","host":"123.253.212.77:8080","remoteAddress":"206.168.34.122","remotePort":60250},"msg":"incoming request"}
+{"level":30,"time":1772497937480,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d2","msg":"Route GET:/security.txt not found"}
+{"level":30,"time":1772497937481,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d2","res":{"statusCode":404},"responseTime":0.6299580335617065,"msg":"request completed"}
+{"level":30,"time":1772498181443,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d3","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"104.164.8.29","remotePort":4678},"msg":"incoming request"}
+{"level":30,"time":1772498181444,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d3","msg":"Route GET:/login not found"}
+{"level":30,"time":1772498181445,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d3","res":{"statusCode":404},"responseTime":1.2032079696655273,"msg":"request completed"}
+{"level":30,"time":1772498952169,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d4","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":50248},"msg":"incoming request"}
+{"level":30,"time":1772498952169,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d4","msg":"Route GET:/ not found"}
+{"level":30,"time":1772498952170,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d4","res":{"statusCode":404},"responseTime":1.0931659936904907,"msg":"request completed"}
+{"level":30,"time":1772498965425,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d5","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":38834},"msg":"incoming request"}
+{"level":30,"time":1772498965425,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d5","msg":"Route GET:/ not found"}
+{"level":30,"time":1772498965426,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d5","res":{"statusCode":404},"responseTime":0.46016693115234375,"msg":"request completed"}
+{"level":30,"time":1772500540736,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d6","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":35382},"msg":"incoming request"}
+{"level":30,"time":1772500540736,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d6","msg":"Route GET:/ not found"}
+{"level":30,"time":1772500540737,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d6","res":{"statusCode":404},"responseTime":1.1651250123977661,"msg":"request completed"}
+{"level":30,"time":1772501040727,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d7","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"45.156.87.91","remotePort":47502},"msg":"incoming request"}
+{"level":30,"time":1772501040728,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d7","msg":"Route GET:/login not found"}
+{"level":30,"time":1772501040729,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d7","res":{"statusCode":404},"responseTime":1.6222920417785645,"msg":"request completed"}
+{"level":30,"time":1772501567546,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d8","req":{"method":"GET","url":"/","host":"","remoteAddress":"216.180.246.41","remotePort":21916},"msg":"incoming request"}
+{"level":30,"time":1772501567546,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d8","msg":"Route GET:/ not found"}
+{"level":30,"time":1772501567548,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d8","res":{"statusCode":404},"responseTime":1.742542028427124,"msg":"request completed"}
+{"level":30,"time":1772501708821,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d9","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"216.180.246.41","remotePort":2222},"msg":"incoming request"}
+{"level":30,"time":1772501708822,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d9","msg":"Route GET:/ not found"}
+{"level":30,"time":1772501708823,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-d9","res":{"statusCode":404},"responseTime":1.2116249799728394,"msg":"request completed"}
+{"level":30,"time":1772501708911,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-da","req":{"method":"GET","url":"/manage/account/login","host":"123.253.212.77:8080","remoteAddress":"216.180.246.41","remotePort":2222},"msg":"incoming request"}
+{"level":30,"time":1772501708911,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-da","msg":"Route GET:/manage/account/login not found"}
+{"level":30,"time":1772501708912,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-da","res":{"statusCode":404},"responseTime":0.7318339347839355,"msg":"request completed"}
+{"level":30,"time":1772501709445,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-db","req":{"method":"GET","url":"/admin/index.html","host":"123.253.212.77:8080","remoteAddress":"216.180.246.41","remotePort":2222},"msg":"incoming request"}
+{"level":30,"time":1772501709445,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-db","msg":"Route GET:/admin/index.html not found"}
+{"level":30,"time":1772501709446,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-db","res":{"statusCode":404},"responseTime":0.33079206943511963,"msg":"request completed"}
+{"level":30,"time":1772502042959,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dc","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":53480},"msg":"incoming request"}
+{"level":30,"time":1772502042959,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dc","msg":"Route GET:/ not found"}
+{"level":30,"time":1772502042960,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dc","res":{"statusCode":404},"responseTime":0.5192079544067383,"msg":"request completed"}
+{"level":30,"time":1772502309123,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dd","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":58778},"msg":"incoming request"}
+{"level":30,"time":1772502309124,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dd","msg":"Route GET:/ not found"}
+{"level":30,"time":1772502309125,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dd","res":{"statusCode":404},"responseTime":1.1086249351501465,"msg":"request completed"}
+{"level":30,"time":1772503591673,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-de","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":38706},"msg":"incoming request"}
+{"level":30,"time":1772503591673,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-de","msg":"Route GET:/ not found"}
+{"level":30,"time":1772503591675,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-de","res":{"statusCode":404},"responseTime":1.5686659812927246,"msg":"request completed"}
+{"level":30,"time":1772505180259,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-df","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":43670},"msg":"incoming request"}
+{"level":30,"time":1772505180260,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-df","msg":"Route GET:/ not found"}
+{"level":30,"time":1772505180261,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-df","res":{"statusCode":404},"responseTime":1.2502080202102661,"msg":"request completed"}
+{"level":30,"time":1772505595509,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dg","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":35670},"msg":"incoming request"}
+{"level":30,"time":1772505595510,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dg","msg":"Route GET:/ not found"}
+{"level":30,"time":1772505595511,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dg","res":{"statusCode":404},"responseTime":1.3017090559005737,"msg":"request completed"}
+{"level":30,"time":1772506604460,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dh","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":36288},"msg":"incoming request"}
+{"level":30,"time":1772506604460,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dh","msg":"Route GET:/ not found"}
+{"level":30,"time":1772506604461,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dh","res":{"statusCode":404},"responseTime":1.0291669368743896,"msg":"request completed"}
+{"level":30,"time":1772506748880,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-di","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"104.164.8.29","remotePort":6704},"msg":"incoming request"}
+{"level":30,"time":1772506748881,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-di","msg":"Route GET:/login not found"}
+{"level":30,"time":1772506748882,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-di","res":{"statusCode":404},"responseTime":1.2643749713897705,"msg":"request completed"}
+{"level":30,"time":1772507111812,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dj","req":{"method":"GET","url":"/","host":"123.253.212.77","remoteAddress":"142.93.192.70","remotePort":37810},"msg":"incoming request"}
+{"level":30,"time":1772507111813,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dj","msg":"Route GET:/ not found"}
+{"level":30,"time":1772507111813,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dj","res":{"statusCode":404},"responseTime":1.1782909631729126,"msg":"request completed"}
+{"level":30,"time":1772507112005,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dk","req":{"method":"GET","url":"/favicon.ico","host":"123.253.212.77","remoteAddress":"142.93.192.70","remotePort":37812},"msg":"incoming request"}
+{"level":30,"time":1772507112005,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dk","msg":"Route GET:/favicon.ico not found"}
+{"level":30,"time":1772507112005,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dk","res":{"statusCode":404},"responseTime":0.5733339786529541,"msg":"request completed"}
+{"level":30,"time":1772507257988,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dl","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.146.155","remotePort":33844},"msg":"incoming request"}
+{"level":30,"time":1772507257989,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dl","msg":"Route GET:/login not found"}
+{"level":30,"time":1772507257990,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dl","res":{"statusCode":404},"responseTime":1.474916934967041,"msg":"request completed"}
+{"level":30,"time":1772508149717,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dm","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":33706},"msg":"incoming request"}
+{"level":30,"time":1772508149718,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dm","msg":"Route GET:/ not found"}
+{"level":30,"time":1772508149719,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dm","res":{"statusCode":404},"responseTime":1.3217920064926147,"msg":"request completed"}
+{"level":30,"time":1772508967659,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dn","req":{"method":"GET","url":"/","host":"","remoteAddress":"147.185.132.210","remotePort":54881},"msg":"incoming request"}
+{"level":30,"time":1772508967659,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dn","msg":"Route GET:/ not found"}
+{"level":30,"time":1772508967661,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dn","res":{"statusCode":404},"responseTime":1.5382499694824219,"msg":"request completed"}
+{"level":30,"time":1772508990319,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-do","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":50358},"msg":"incoming request"}
+{"level":30,"time":1772508990319,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-do","msg":"Route GET:/ not found"}
+{"level":30,"time":1772508990320,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-do","res":{"statusCode":404},"responseTime":0.42279207706451416,"msg":"request completed"}
+{"level":30,"time":1772509100694,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dp","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.166.68","remotePort":37660},"msg":"incoming request"}
+{"level":30,"time":1772509100695,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dp","msg":"Route GET:/login not found"}
+{"level":30,"time":1772509100696,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dp","res":{"statusCode":404},"responseTime":1.6668750047683716,"msg":"request completed"}
+{"level":30,"time":1772509754212,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dq","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":53598},"msg":"incoming request"}
+{"level":30,"time":1772509754213,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dq","msg":"Route GET:/ not found"}
+{"level":30,"time":1772509754214,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dq","res":{"statusCode":404},"responseTime":1.329582929611206,"msg":"request completed"}
+{"level":30,"time":1772511299312,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dr","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":53632},"msg":"incoming request"}
+{"level":30,"time":1772511299313,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dr","msg":"Route GET:/ not found"}
+{"level":30,"time":1772511299314,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dr","res":{"statusCode":404},"responseTime":1.3662079572677612,"msg":"request completed"}
+{"level":30,"time":1772511679820,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ds","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.18","remotePort":33554},"msg":"incoming request"}
+{"level":30,"time":1772511679821,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ds","msg":"Route GET:/ not found"}
+{"level":30,"time":1772511679822,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ds","res":{"statusCode":404},"responseTime":1.751542091369629,"msg":"request completed"}
+{"level":30,"time":1772512063565,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dt","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":53302},"msg":"incoming request"}
+{"level":30,"time":1772512063566,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dt","msg":"Route GET:/ not found"}
+{"level":30,"time":1772512063567,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dt","res":{"statusCode":404},"responseTime":1.4264999628067017,"msg":"request completed"}
+{"level":30,"time":1772512400195,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-du","req":{"method":"GET","url":"/bins/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.18","remotePort":60346},"msg":"incoming request"}
+{"level":30,"time":1772512400195,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-du","msg":"Route GET:/bins/ not found"}
+{"level":30,"time":1772512400196,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-du","res":{"statusCode":404},"responseTime":1.3579169511795044,"msg":"request completed"}
+{"level":30,"time":1772512757318,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dv","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":35344},"msg":"incoming request"}
+{"level":30,"time":1772512757320,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dv","msg":"Route GET:/ not found"}
+{"level":30,"time":1772512757321,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dv","res":{"statusCode":404},"responseTime":1.751459002494812,"msg":"request completed"}
+{"level":30,"time":1772513079323,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dw","req":{"method":"GET","url":"/bin/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.18","remotePort":45896},"msg":"incoming request"}
+{"level":30,"time":1772513079323,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dw","msg":"Route GET:/bin/ not found"}
+{"level":30,"time":1772513079324,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dw","res":{"statusCode":404},"responseTime":0.8578330278396606,"msg":"request completed"}
+{"level":30,"time":1772513638815,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dx","req":{"method":"GET","url":"/backup/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.18","remotePort":46154},"msg":"incoming request"}
+{"level":30,"time":1772513638816,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dx","msg":"Route GET:/backup/ not found"}
+{"level":30,"time":1772513638817,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dx","res":{"statusCode":404},"responseTime":1.4949170351028442,"msg":"request completed"}
+{"level":30,"time":1772514246132,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dy","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":49016},"msg":"incoming request"}
+{"level":30,"time":1772514246132,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dy","msg":"Route GET:/ not found"}
+{"level":30,"time":1772514246133,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dy","res":{"statusCode":404},"responseTime":1.1225000619888306,"msg":"request completed"}
+{"level":30,"time":1772515162702,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dz","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.156.87.19","remotePort":33874},"msg":"incoming request"}
+{"level":30,"time":1772515162703,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dz","msg":"Route GET:/ not found"}
+{"level":30,"time":1772515162704,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-dz","res":{"statusCode":404},"responseTime":1.3054169416427612,"msg":"request completed"}
+{"level":30,"time":1772515162720,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e0","req":{"method":"POST","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.156.87.19","remotePort":33888},"msg":"incoming request"}
+{"level":30,"time":1772515162721,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e0","msg":"Route POST:/ not found"}
+{"level":30,"time":1772515162721,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e0","res":{"statusCode":404},"responseTime":1.628166913986206,"msg":"request completed"}
+{"level":30,"time":1772515440820,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e1","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":36068},"msg":"incoming request"}
+{"level":30,"time":1772515440821,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e1","msg":"Route GET:/ not found"}
+{"level":30,"time":1772515440822,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e1","res":{"statusCode":404},"responseTime":1.2250419855117798,"msg":"request completed"}
+{"level":30,"time":1772515762354,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e2","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":52598},"msg":"incoming request"}
+{"level":30,"time":1772515762354,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e2","msg":"Route GET:/ not found"}
+{"level":30,"time":1772515762355,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e2","res":{"statusCode":404},"responseTime":0.9758340120315552,"msg":"request completed"}
+{"level":30,"time":1772516225145,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e3","req":{"method":"GET","url":"/","host":"123.253.212.77","remoteAddress":"118.17.62.16","remotePort":42210},"msg":"incoming request"}
+{"level":30,"time":1772516225146,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e3","msg":"Route GET:/ not found"}
+{"level":30,"time":1772516225151,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e3","res":{"statusCode":404},"responseTime":5.2453330755233765,"msg":"request completed"}
+{"level":30,"time":1772516790179,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e4","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"185.247.137.115","remotePort":38475},"msg":"incoming request"}
+{"level":30,"time":1772516790180,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e4","msg":"Route GET:/ not found"}
+{"level":30,"time":1772516790182,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e4","res":{"statusCode":404},"responseTime":1.5864999294281006,"msg":"request completed"}
+{"level":30,"time":1772517288542,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e5","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":51674},"msg":"incoming request"}
+{"level":30,"time":1772517288543,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e5","msg":"Route GET:/ not found"}
+{"level":30,"time":1772517288544,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e5","res":{"statusCode":404},"responseTime":1.8497079610824585,"msg":"request completed"}
+{"level":30,"time":1772517627350,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e6","req":{"method":"GET","url":"/login","host":"123.253.212.77:8080","remoteAddress":"87.106.166.68","remotePort":58748},"msg":"incoming request"}
+{"level":30,"time":1772517627350,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e6","msg":"Route GET:/login not found"}
+{"level":30,"time":1772517627351,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e6","res":{"statusCode":404},"responseTime":1.0128329992294312,"msg":"request completed"}
+{"level":30,"time":1772518680856,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e7","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":52220},"msg":"incoming request"}
+{"level":30,"time":1772518680857,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e7","msg":"Route GET:/ not found"}
+{"level":30,"time":1772518680858,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e7","res":{"statusCode":404},"responseTime":1.400833010673523,"msg":"request completed"}
+{"level":30,"time":1772518943686,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e8","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":43576},"msg":"incoming request"}
+{"level":30,"time":1772518943686,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e8","msg":"Route GET:/ not found"}
+{"level":30,"time":1772518943688,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e8","res":{"statusCode":404},"responseTime":1.6470839977264404,"msg":"request completed"}
+{"level":30,"time":1772519454354,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e9","req":{"method":"POST","url":"/v1/execute","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":49462},"msg":"incoming request"}
+{"level":30,"time":1772519454356,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /api/protected"}
+{"level":30,"time":1772519454363,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772519454366,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ea","req":{"method":"POST","url":"/v1/execute","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":49463},"msg":"incoming request"}
+{"level":30,"time":1772519454366,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /api/protected"}
+{"level":30,"time":1772519454369,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772519454370,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-eb","req":{"method":"POST","url":"/v1/execute","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":49466},"msg":"incoming request"}
+{"level":30,"time":1772519454370,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /api/protected"}
+{"level":30,"time":1772519454377,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+{"level":30,"time":1772519454379,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ec","req":{"method":"POST","url":"/v1/execute","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":49467},"msg":"incoming request"}
+{"level":30,"time":1772519454379,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Received execution intent for POST /api/protected"}
+{"level":30,"time":1772519454382,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[INGRESS] Broadcasting payload to 5 Guardian Nodes via Speculative Parallel SLM evaluation..."}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772519455021,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772519455021,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-e9","res":{"statusCode":403},"responseTime":667.2748330831528,"msg":"request completed"}
+[GuardianNode-5] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-3] Verdict: 🛑 MALICIOUS/ERROR. Blocking transaction.
+[GuardianNode-1] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+[GuardianNode-4] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772519455043,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+[GuardianNode-3] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":30,"time":1772519455043,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-eb","res":{"statusCode":403},"responseTime":672.7550829648972,"msg":"request completed"}
+[GuardianNode-1] Verdict: 🛑 MALICIOUS/ERROR. Blocking transaction.
+[GuardianNode-2] Verdict: 🛑 MALICIOUS/ERROR. Blocking transaction.
+[GuardianNode-5] Verdict: 🛑 MALICIOUS/ERROR. Blocking transaction.
+{"level":50,"time":1772519455050,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772519455050,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ec","res":{"statusCode":403},"responseTime":671.2566670179367,"msg":"request completed"}
+[GuardianNode-2] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.
+{"level":50,"time":1772519455069,"pid":32459,"hostname":"unlabeled.qupra.nl","msg":"[CONSENSUS] Quorum FAILED. Guardians flagged payload as Malicious."}
+{"level":30,"time":1772519455069,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ea","res":{"statusCode":403},"responseTime":703.1765409708023,"msg":"request completed"}
+{"level":30,"time":1772520298723,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ed","req":{"method":"GET","url":"http://ossweb-img.qq.com/images/js/eas/eas.js","host":"ossweb-img.qq.com","remoteAddress":"89.248.164.165","remotePort":46502},"msg":"incoming request"}
+{"level":30,"time":1772520298723,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ed","msg":"Route GET:http://ossweb-img.qq.com/images/js/eas/eas.js not found"}
+{"level":30,"time":1772520298724,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ed","res":{"statusCode":404},"responseTime":0.5172089338302612,"msg":"request completed"}
+{"level":30,"time":1772520488951,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ee","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"204.76.203.212","remotePort":47814},"msg":"incoming request"}
+{"level":30,"time":1772520488952,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ee","msg":"Route GET:/ not found"}
+{"level":30,"time":1772520488952,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ee","res":{"statusCode":404},"responseTime":0.5204169750213623,"msg":"request completed"}
+{"level":30,"time":1772521899840,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ef","req":{"method":"GET","url":"/","host":"123.253.212.77:8080","remoteAddress":"45.194.92.25","remotePort":60312},"msg":"incoming request"}
+{"level":30,"time":1772521899841,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ef","msg":"Route GET:/ not found"}
+{"level":30,"time":1772521899842,"pid":32459,"hostname":"unlabeled.qupra.nl","reqId":"req-ef","res":{"statusCode":404},"responseTime":1.395332932472229,"msg":"request completed"}
