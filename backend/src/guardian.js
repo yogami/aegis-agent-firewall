@@ -1,6 +1,10 @@
 import crypto from 'crypto';
 import { bls12_381 } from '@noble/curves/bls12-381.js';
 
+if (typeof globalThis.crypto === 'undefined' || !globalThis.crypto.getRandomValues) {
+    globalThis.crypto = crypto.webcrypto;
+}
+
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 if (!OPENROUTER_API_KEY) {
