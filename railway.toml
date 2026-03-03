@@ -1,5 +1,6 @@
 [build]
 builder = "NIXPACKS"
+pkgs = ["stdenv", "gcc"]
 watchPatterns = ["backend/**"]
 
 [build.nixpacksPlan.phases.setup]
