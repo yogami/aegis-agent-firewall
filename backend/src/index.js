@@ -1,9 +1,8 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
-import { VirtualGuardian, evictGlobalSemanticCache } from './guardian.js';
+import { VirtualGuardian, evictGlobalSemanticCache, rustCore, rustCoreAvailable } from './guardian.js';
 import crypto from 'crypto';
-import { bls12_381 } from '@noble/curves/bls12-381.js';
 import sjson from 'secure-json-parse';
 import { logBlockedTransaction } from './auditLogger.js';
 import { evaluatePolicy, getPolicyManifest } from './opa-gate.js';
@@ -154,40 +153,26 @@ async function buildQuorumPromise(payload, signal) {
     return { success: false, reasons: rejectReasons };
 }
 
-function extractSignatureBytes(sortedResponses) {
-    return sortedResponses.map(r => new Uint8Array(Buffer.from(r.signatureShard, 'hex')));
-}
-
-function extractActivePublicKeys(sortedResponses) {
-    return sortedResponses.map(r => r.publicKey);
-}
-
-function calculateCurveMessage(payload) {
-    const messageBytes = crypto.createHash('sha256').update(JSON.stringify(payload)).digest();
-    return bls12_381.shortSignatures.hash(messageBytes);
-}
-
-function verifyAggregationMath(aggregatedSignature, curveMessage, aggregatedPublicKey) {
-    const isValidMath = bls12_381.shortSignatures.verify(aggregatedSignature, curveMessage, aggregatedPublicKey);
-    if (!isValidMath) throw new Error("Cryptographic Aggregation Failure");
-}
-
 function getMasterSignatureHash(responses, payload) {
     const sortedResponses = responses.sort((a, b) => a.guardianId.localeCompare(b.guardianId));
 
-    const signatureBytes = extractSignatureBytes(sortedResponses);
-    const activePublicKeys = extractActivePublicKeys(sortedResponses);
+    // Extract hex strings for Rust aggregation
+    const sigHexes = sortedResponses.map(r => r.signatureShard);
+    const pkHexes = sortedResponses.map(r => r.publicKeyHex);
 
-    const aggregatedSignature = bls12_381.shortSignatures.aggregateSignatures(signatureBytes);
-    const aggregatedPublicKey = bls12_381.shortSignatures.aggregatePublicKeys(activePublicKeys);
+    // Rust WASM: aggregate signatures and public keys
+    const aggregatedSigHex = rustCore.aggregate_signatures(JSON.stringify(sigHexes));
+    const aggregatedPkHex = rustCore.aggregate_public_keys(JSON.stringify(pkHexes));
 
-    const curveMessage = calculateCurveMessage(payload);
-    verifyAggregationMath(aggregatedSignature, curveMessage, aggregatedPublicKey);
+    // Rust WASM: verify the aggregated signature
+    const messageHex = Buffer.from(
+        crypto.createHash('sha256').update(JSON.stringify(payload)).digest()
+    ).toString('hex');
 
-    const encodedAggSig = typeof aggregatedSignature.toRawBytes === 'function' ? aggregatedSignature.toRawBytes(true) : aggregatedSignature;
-    const finalHex = typeof encodedAggSig.toHex === 'function' ? encodedAggSig.toHex() : Buffer.from(encodedAggSig).toString('hex');
+    const isValid = rustCore.verify(aggregatedSigHex, messageHex, aggregatedPkHex);
+    if (!isValid) throw new Error("Cryptographic Aggregation Failure");
 
-    return finalHex;
+    return aggregatedSigHex;
 }
 
 const globalConsensusCache = new Map();

@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import { bls12_381 } from '@noble/curves/bls12-381.js';
 
 if (typeof globalThis.crypto === 'undefined' || !globalThis.crypto.getRandomValues) {
     globalThis.crypto = crypto.webcrypto;
@@ -91,42 +90,58 @@ const handleRejection = (decision, guardianId) => {
     return { safe: false, signatureShard: null, reason: "Semantic Evaluation failed / SLM Rejected." };
 };
 
-let rustSignerAvailable = false;
-let SemaProofSigner;
+// ═══════════════════════════════════════════════════════════
+//  Rust BLS Core — Full Pipeline (blst via WASM)
+// ═══════════════════════════════════════════════════════════
 
-// Dynamic load of the Rust/WASM Core (Deep Tech Pivot)
+let rustCoreAvailable = false;
+let rustCore = null;  // The full WASM module with all 6 functions
+
 const loadRustCore = async () => {
     try {
-        const pkg = await import('./pkg/semaproof_bls_engine.js');
-        SemaProofSigner = pkg.SemaProofSigner;
-        rustSignerAvailable = true;
-        console.log("[CRYPTO] 🦀 Rust BLS Core successfully initialized (WASM Bridge).");
+        rustCore = await import('./pkg/semaproof_bls_engine.js');
+        rustCoreAvailable = true;
+        console.log("[CRYPTO] 🦀 Rust BLS Core successfully initialized (Full Pipeline — blst WASM).");
     } catch (e) {
-        console.warn("[CRYPTO] ⚠️  Rust BLS Core missing or failed to load. Falling back to noble-js.");
+        console.error("[CRYPTO] ❌ Rust BLS Core failed to load. BLS signing UNAVAILABLE.", e.message);
     }
 };
 
-loadRustCore();
+await loadRustCore();
 
-const generateSignatureShard = (payload, keyShard, publicKey, guardianId, rustSigner) => {
-    console.log(`[${guardianId}] Verdict: ✅ SAFE. Generating Mathematical BLS Signature Shard.`);
+if (!rustCoreAvailable) {
+    console.error("[CRYPTO] FATAL: Rust BLS Core is required. No fallback available.");
+}
 
-    // Always use noble-js for signing to ensure aggregation compatibility
-    // The Rust BLS core (blst) uses different key derivation than noble-js,
-    // so signatures from blst cannot be aggregated with noble-js public keys.
-    // Rust core remains loaded as a cryptographic attestation layer.
-    const messageBytes = crypto.createHash('sha256').update(JSON.stringify(payload)).digest();
-    const curveMessage = bls12_381.shortSignatures.hash(messageBytes);
-    const signature = bls12_381.shortSignatures.sign(curveMessage, keyShard);
+// ═══════════════════════════════════════════════════════════
+//  Guardian Key Generation & Signing (Rust-native)
+// ═══════════════════════════════════════════════════════════
 
-    const speculativeShard = typeof signature.toHex === 'function' ? signature.toHex() : Buffer.from(signature).toString('hex');
+function generateGuardianKeys() {
+    const seed = crypto.getRandomValues(new Uint8Array(32));
+    const keypairJson = rustCore.generate_keypair(seed);
+    const { sk, pk } = JSON.parse(keypairJson);
+    return { skHex: sk, pkHex: pk };
+}
+
+function signPayload(skHex, payload) {
+    const messageHex = Buffer.from(
+        crypto.createHash('sha256').update(JSON.stringify(payload)).digest()
+    ).toString('hex');
+    return rustCore.sign_message(skHex, messageHex);
+}
+
+const generateSignatureShard = (payload, skHex, pkHex, guardianId) => {
+    console.log(`[${guardianId}] Verdict: ✅ SAFE. Generating BLS Signature Shard (Rust blst).`);
+
+    const signatureHex = signPayload(skHex, payload);
 
     return {
         safe: true,
         guardianId,
-        signatureShard: speculativeShard,
-        publicKey,
-        rustAttested: rustSignerAvailable
+        signatureShard: signatureHex,
+        publicKeyHex: pkHex,
+        rustNative: true
     };
 };
 
@@ -134,13 +149,11 @@ export class VirtualGuardian {
     constructor(id) {
         this.guardianId = `GuardianNode-${id}`;
         this.modelId = id;
-        this.keyShard = bls12_381.utils.randomSecretKey();
-        this.publicKey = bls12_381.getPublicKey ? bls12_381.getPublicKey(this.keyShard) : bls12_381.shortSignatures.getPublicKey(this.keyShard);
 
-        // Prepare Rust-based signer if possible
-        if (rustSignerAvailable) {
-            this.rustSigner = new SemaProofSigner(this.keyShard);
-        }
+        // Generate keys via Rust BLS core
+        const { skHex, pkHex } = generateGuardianKeys();
+        this.skHex = skHex;
+        this.pkHex = pkHex;
     }
 
     async evaluatePayload(payload, signal, requestHeaders) {
@@ -163,11 +176,7 @@ export class VirtualGuardian {
         const decision = await fetchSLMDecision(prompt, signal, this.modelId);
 
         if (decision === "SAFE") {
-            // Priority: Attempt to use the Rust signer associated with this node
-            if (!this.rustSigner && rustSignerAvailable) {
-                this.rustSigner = new SemaProofSigner(this.keyShard);
-            }
-            const shardHex = generateSignatureShard(payload, this.keyShard, this.publicKey, this.guardianId, this.rustSigner);
+            const shardHex = generateSignatureShard(payload, this.skHex, this.pkHex, this.guardianId);
             semanticCache.set(payloadHash, { shardHex, timestamp: Date.now() });
             return shardHex;
         }
@@ -181,4 +190,5 @@ export function evictGlobalSemanticCache() {
     semanticCache.clear();
 }
 
-export { GUARDIAN_MODELS };
+// Export the Rust core for use by index.js aggregation
+export { GUARDIAN_MODELS, rustCore, rustCoreAvailable };

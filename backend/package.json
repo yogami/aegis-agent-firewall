@@ -26,9 +26,6 @@
   "dependencies": {
     "@fastify/cors": "^11.2.0",
     "@fastify/rate-limit": "^10.3.0",
-    "@noble/curves": "^2.0.1",
-    "@noble/hashes": "^2.0.1",
-    "@noble/secp256k1": "^3.0.0",
     "axios": "^1.13.6",
     "fastify": "^5.7.4",
     "ms": "^2.1.3",
