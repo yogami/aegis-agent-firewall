@@ -14,3 +14,4 @@ test-results/
 # AegisGuard training artifacts
 training-data/aegisguard-checkpoints/
 backend/src/aegisguard-model/model.safetensors
+backend/src/aegisguard-model/model.onnx
