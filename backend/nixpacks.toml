@@ -1,9 +1,9 @@
 [phases.setup]
-nixPkgs = ["nodejs-18_x"]
+nixPkgs = ["nodejs-18_x", "git-lfs"]
 
 [phases.install]
 dependsOn = ["setup"]
-cmds = ["npm install"]
+cmds = ["git lfs install --skip-repo && git lfs pull || true", "npm install"]
 
 [start]
 cmd = "npm run start"
