@@ -10,3 +10,7 @@ pkg/
 .DS_Store
 coverage/
 test-results/
+
+# AegisGuard training artifacts
+training-data/aegisguard-checkpoints/
+backend/src/aegisguard-model/model.safetensors

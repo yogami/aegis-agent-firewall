@@ -8,6 +8,7 @@ import { logBlockedTransaction } from './auditLogger.js';
 import { evaluatePolicy, getPolicyManifest } from './opa-gate.js';
 import { loadThreatStore, getThreats, getThreatStats } from './threat-store.js';
 import { GUARDIAN_MODELS } from './guardian.js';
+import { initAegisGuard, classifyPayload, isModelReady } from './aegisguard.js';
 
 if (!process.env.OPENROUTER_API_KEY) {
     console.error('FATAL: OPENROUTER_API_KEY env var is required. Set it in Railway or .env');
@@ -80,17 +81,21 @@ let activeSystemState = {
 server.get('/health', async () => ({
     status: 'ok',
     guardian_nodes: 3,
-    layers: ['OPA_DETERMINISTIC', 'SLM_QUORUM'],
-    architecture: 'V3 — 2-Layer (OPA + SLM)',
+    aegisguard: isModelReady() ? 'loaded' : 'fallback_to_quorum',
+    layers: isModelReady()
+        ? ['OPA_DETERMINISTIC', 'AEGISGUARD_LOCAL', 'SLM_QUORUM_ESCALATION']
+        : ['OPA_DETERMINISTIC', 'SLM_QUORUM'],
+    architecture: isModelReady() ? 'V4 — 3-Layer Hybrid (OPA + AegisGuard + SLM)' : 'V3 — 2-Layer (OPA + SLM)',
     threatStore: getThreatStats()
 }));
 server.get('/state', async () => activeSystemState);
 server.get('/v1/threats', async () => ({ threats: getThreats(), stats: getThreatStats() }));
-server.get('/v1/guardians', async () => ({ guardians: GUARDIAN_MODELS }));
+server.get('/v1/guardians', async () => ({ guardians: GUARDIAN_MODELS, aegisguard: isModelReady() }));
 server.get('/v1/metrics', async () => ({
     layers: [
         { id: 'OPA', type: 'Deterministic', latency: '<1ms', rules: 9 },
-        { id: 'SLM', type: 'Probabilistic', models: GUARDIAN_MODELS.length, threshold: '2-of-3' }
+        ...(isModelReady() ? [{ id: 'AegisGuard', type: 'Local ONNX Classifier', latency: '30-50ms', categories: 13 }] : []),
+        { id: 'SLM', type: 'Probabilistic', models: GUARDIAN_MODELS.length, threshold: '2-of-3', role: isModelReady() ? 'Escalation Only' : 'Primary' }
     ],
     threatStore: getThreatStats(),
     policy: getPolicyManifest()
@@ -266,9 +271,51 @@ server.post('/v1/execute', async (request, reply) => {
         });
     }
 
-    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Checking Fast-Path / Quorum.`);
+    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Routing to ${isModelReady() ? 'AegisGuard' : 'SLM Quorum'}.`);
 
-    // Layer 2: SLM Quorum (2-of-3 heterogeneous models)
+    // Layer 2: AegisGuard Local ONNX Classifier (30-50ms)
+    if (isModelReady()) {
+        const classification = await classifyPayload(request.body);
+        server.log.info(`[AEGISGUARD] ${classification.label} (${(classification.confidence * 100).toFixed(1)}%) in ${classification.latencyMs}ms — ${classification.action}`);
+
+        if (classification.action === 'ALLOW') {
+            return reply.status(200).send({
+                status: 'success',
+                request_id: crypto.randomUUID(),
+                layer: 'AEGISGUARD_LOCAL',
+                classification: {
+                    label: classification.label,
+                    confidence: classification.confidence,
+                    mitre: classification.mitre,
+                    eu_ai_act: classification.eu_ai_act
+                },
+                latencyMs: classification.latencyMs,
+                master_signature_hash: classification.signatureHash,
+                message: 'Transaction authorized by AegisGuard (fast path)'
+            });
+        }
+
+        if (classification.action === 'BLOCK' && classification.confidence >= 0.95) {
+            logBlockedTransaction(crypto.randomUUID(), request.body, [classification.label], 'AEGISGUARD_LOCAL').catch(console.error);
+            return reply.status(403).send({
+                status: 'rejected',
+                layer: 'AEGISGUARD_LOCAL',
+                classification: {
+                    label: classification.label,
+                    confidence: classification.confidence,
+                    mitre: classification.mitre,
+                    eu_ai_act: classification.eu_ai_act
+                },
+                latencyMs: classification.latencyMs,
+                message: `Transaction blocked by AegisGuard: ${classification.label} (${(classification.confidence * 100).toFixed(1)}%)`
+            });
+        }
+
+        // ESCALATE: Low confidence — fall through to SLM Quorum
+        server.log.info(`[AEGISGUARD] Escalating to SLM Quorum (confidence: ${(classification.confidence * 100).toFixed(1)}%)`);
+    }
+
+    // Layer 3: SLM Quorum Escalation (2-of-3 heterogeneous models)
     return await executeTransaction(request, reply);
 });
 
@@ -278,6 +325,14 @@ async function start() {
     try {
         // Warm-boot: load threat signatures from disk
         loadThreatStore();
+
+        // Init AegisGuard ONNX classifier (non-blocking — falls back to SLM quorum if not available)
+        const aegisReady = await initAegisGuard();
+        if (aegisReady) {
+            console.log('🛡️  AegisGuard V4: 3-Layer Hybrid (OPA + AegisGuard + SLM Escalation)');
+        } else {
+            console.log('⚠️  AegisGuard model not found. Running V3: 2-Layer (OPA + SLM Quorum)');
+        }
 
         const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
         await server.listen({ port, host: '0.0.0.0' });
