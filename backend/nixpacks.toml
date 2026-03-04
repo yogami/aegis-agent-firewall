@@ -1,9 +1,9 @@
 [phases.setup]
-nixPkgs = ["nodejs-18_x", "git-lfs"]
+nixPkgs = ["nodejs-18_x"]
 
 [phases.install]
 dependsOn = ["setup"]
-cmds = ["git lfs install --skip-repo && git lfs pull || true", "npm install"]
+cmds = ["npm install"]
 
 [start]
-cmd = "npm run start"
+cmd = "node src/download-model.mjs && npm run start"
