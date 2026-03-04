@@ -6,4 +6,4 @@ dependsOn = ["setup"]
 cmds = ["npm install"]
 
 [start]
-cmd = "node src/download-model.mjs && npm run start"
+cmd = "npm run start"
