@@ -1,9 +1,9 @@
 /**
- * AegisGuard — Local ONNX Agent-Intent Safety Classifier (DistilBERT)
+ * SemaProof — Local ONNX Agent-Intent Safety Classifier (DistilBERT)
  * 
  * 4-tier hybrid architecture:
  *   Layer 1: OPA Gate (sub-1ms) — deterministic rules
- *   Layer 2: AegisGuard DistilBERT (5-10ms) — fine-tuned ONNX classifier
+ *   Layer 2: SemaProof DistilBERT (5-10ms) — fine-tuned ONNX classifier
  *   Layer 3: (Future) QLoRA Qwen (30-50ms) — deeper reasoning
  *   Layer 4: SLM Quorum Escalation (800ms) — for low-confidence edge cases
  * 
@@ -24,7 +24,7 @@ let modelLoaded = false;
 let _transformersEnv = null;
 
 const VOLUME_MODEL_DIR = '/data/models';
-const LOCAL_MODEL_DIR = path.resolve(process.cwd(), 'src', 'aegisguard-model');
+const LOCAL_MODEL_DIR = path.resolve(process.cwd(), 'src', 'semaproof-model');
 const CONFIDENCE_THRESHOLD_HIGH = 0.95;
 const CONFIDENCE_THRESHOLD_LOW = 0.40;
 
@@ -56,7 +56,7 @@ function downloadFile(url, dest, headers = {}) {
     return new Promise((resolve, reject) => {
         const get = (url) => {
             const opts = new URL(url);
-            opts.headers = { 'User-Agent': 'aegisguard', ...headers };
+            opts.headers = { 'User-Agent': 'semaproof', ...headers };
             https.get(opts, (res) => {
                 if (res.statusCode === 301 || res.statusCode === 302) {
                     get(res.headers.location);
@@ -72,7 +72,7 @@ function downloadFile(url, dest, headers = {}) {
                 res.on('data', (chunk) => {
                     downloaded += chunk.length;
                     if (total && downloaded % (10 * 1024 * 1024) < chunk.length) {
-                        console.log(`[AEGISGUARD] ⬇️  ${((downloaded / total) * 100).toFixed(0)}% (${(downloaded / 1024 / 1024).toFixed(0)} MB)`);
+                        console.log(`[SEMAPROOF] ⬇️  ${((downloaded / total) * 100).toFixed(0)}% (${(downloaded / 1024 / 1024).toFixed(0)} MB)`);
                     }
                 });
                 res.pipe(file);
@@ -89,7 +89,7 @@ function downloadFile(url, dest, headers = {}) {
 async function downloadModelFromRelease(targetDir) {
     const token = process.env.GITHUB_TOKEN;
     if (!token) {
-        console.warn('[AEGISGUARD] ⚠️  GITHUB_TOKEN not set. Cannot download model.');
+        console.warn('[SEMAPROOF] ⚠️  GITHUB_TOKEN not set. Cannot download model.');
         return false;
     }
 
@@ -97,7 +97,7 @@ async function downloadModelFromRelease(targetDir) {
         // Get release asset URL
         const apiResp = await new Promise((resolve, reject) => {
             const opts = new URL(`https://api.github.com/repos/${GH_REPO}/releases/tags/${GH_TAG}`);
-            opts.headers = { 'User-Agent': 'aegisguard', 'Authorization': `token ${token}` };
+            opts.headers = { 'User-Agent': 'semaproof', 'Authorization': `token ${token}` };
             https.get(opts, (res) => {
                 let data = '';
                 res.on('data', chunk => data += chunk);
@@ -111,7 +111,7 @@ async function downloadModelFromRelease(targetDir) {
         const asset = release.assets?.find(a => a.name === 'model.onnx');
         if (!asset) throw new Error('model.onnx not found in release');
 
-        console.log(`[AEGISGUARD] ⬇️  Downloading model (${(asset.size / 1024 / 1024).toFixed(0)} MB) from GitHub Release...`);
+        console.log(`[SEMAPROOF] ⬇️  Downloading model (${(asset.size / 1024 / 1024).toFixed(0)} MB) from GitHub Release...`);
 
         fs.mkdirSync(targetDir, { recursive: true });
         await downloadFile(asset.url, path.join(targetDir, 'model.onnx'), {
@@ -125,10 +125,10 @@ async function downloadModelFromRelease(targetDir) {
             if (fs.existsSync(src)) fs.copyFileSync(src, path.join(targetDir, f));
         }
 
-        console.log('[AEGISGUARD] ✅  Model downloaded successfully!');
+        console.log('[SEMAPROOF] ✅  Model downloaded successfully!');
         return true;
     } catch (e) {
-        console.warn(`[AEGISGUARD] ⚠️  Download failed: ${e.message}`);
+        console.warn(`[SEMAPROOF] ⚠️  Download failed: ${e.message}`);
         return false;
     }
 }
@@ -155,14 +155,14 @@ async function loadModel(modelDir) {
     tokenizer = await AutoTokenizer.from_pretrained(path.basename(modelDir));
 
     modelLoaded = true;
-    console.log(`[AEGISGUARD] 🛡️  DistilBERT model loaded from ${modelDir} (${labelMap.labels.length} categories)`);
-    console.log(`[AEGISGUARD]    Labels: ${labelMap.labels.join(', ')}`);
+    console.log(`[SEMAPROOF] 🛡️  DistilBERT model loaded from ${modelDir} (${labelMap.labels.length} categories)`);
+    console.log(`[SEMAPROOF]    Labels: ${labelMap.labels.join(', ')}`);
 }
 
 /**
- * Initialize AegisGuard — returns immediately, downloads model in background if needed
+ * Initialize SemaProof — returns immediately, downloads model in background if needed
  */
-export async function initAegisGuard() {
+export async function initSemaProof() {
     try {
         ort = await import('onnxruntime-node');
         const transformers = await import('@xenova/transformers');
@@ -178,7 +178,7 @@ export async function initAegisGuard() {
         }
 
         // No valid model found — attempt async download (don't block server startup)
-        console.log('[AEGISGUARD] ⚠️  No valid model found. Attempting background download...');
+        console.log('[SEMAPROOF] ⚠️  No valid model found. Attempting background download...');
 
         // Fire-and-forget download
         const targetDir = fs.existsSync(VOLUME_MODEL_DIR) ? VOLUME_MODEL_DIR : LOCAL_MODEL_DIR;
@@ -186,17 +186,17 @@ export async function initAegisGuard() {
             if (ok) {
                 try {
                     await loadModel(targetDir);
-                    console.log('[AEGISGUARD] 🔥  Hot-swapped to V4! AegisGuard now active.');
+                    console.log('[SEMAPROOF] 🔥  Hot-swapped to V4! SemaProof now active.');
                 } catch (e) {
-                    console.warn(`[AEGISGUARD] ⚠️  Post-download load failed: ${e.message}`);
+                    console.warn(`[SEMAPROOF] ⚠️  Post-download load failed: ${e.message}`);
                 }
             }
-        }).catch(e => console.warn(`[AEGISGUARD] ⚠️  Background download error: ${e.message}`));
+        }).catch(e => console.warn(`[SEMAPROOF] ⚠️  Background download error: ${e.message}`));
 
         return false; // Server starts in V3 mode, will hot-swap later
     } catch (e) {
-        console.warn(`[AEGISGUARD] ⚠️  Failed to load: ${e.message}`);
-        console.warn('[AEGISGUARD]    Falling back to SLM Quorum mode.');
+        console.warn(`[SEMAPROOF] ⚠️  Failed to load: ${e.message}`);
+        console.warn('[SEMAPROOF]    Falling back to SLM Quorum mode.');
         return false;
     }
 }
@@ -265,7 +265,7 @@ export async function classifyPayload(payload) {
             mitre: taxonomy?.mitre || null,
             eu_ai_act: taxonomy?.eu_ai_act || null,
             latencyMs: Math.round(latencyMs * 100) / 100,
-            signatureHash: crypto.createHmac('sha256', 'aegisguard-v4')
+            signatureHash: crypto.createHmac('sha256', 'semaproof-v4')
                 .update(JSON.stringify({ label: topLabel, confidence, ts: Date.now() }))
                 .digest('hex')
         };

@@ -1,7 +1,7 @@
 /**
- * AegisGuard Seed Templates
+ * SemaProof Seed Templates
  * 13 threat categories × ~40 seeds each = ~520 base examples
- * Based on MITRE ATT&CK for Cloud + Aegis OPA rules
+ * Based on MITRE ATT&CK for Cloud + SemaProof OPA rules
  */
 
 export const THREAT_TAXONOMY = {

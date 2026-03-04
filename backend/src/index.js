@@ -8,7 +8,7 @@ import { logBlockedTransaction } from './auditLogger.js';
 import { evaluatePolicy, getPolicyManifest } from './opa-gate.js';
 import { loadThreatStore, getThreats, getThreatStats } from './threat-store.js';
 import { GUARDIAN_MODELS } from './guardian.js';
-import { initAegisGuard, classifyPayload, isModelReady } from './aegisguard.js';
+import { initSemaProof, classifyPayload, isModelReady } from './semaproof-classifier.js';
 
 if (!process.env.OPENROUTER_API_KEY) {
     console.error('FATAL: OPENROUTER_API_KEY env var is required. Set it in Railway or .env');
@@ -81,20 +81,20 @@ let activeSystemState = {
 server.get('/health', async () => ({
     status: 'ok',
     guardian_nodes: 3,
-    aegisguard: isModelReady() ? 'loaded' : 'fallback_to_quorum',
+    semaproof: isModelReady() ? 'loaded' : 'fallback_to_quorum',
     layers: isModelReady()
-        ? ['OPA_DETERMINISTIC', 'AEGISGUARD_LOCAL', 'SLM_QUORUM_ESCALATION']
+        ? ['OPA_DETERMINISTIC', 'SEMAPROOF_LOCAL', 'SLM_QUORUM_ESCALATION']
         : ['OPA_DETERMINISTIC', 'SLM_QUORUM'],
-    architecture: isModelReady() ? 'V4 — 3-Layer Hybrid (OPA + AegisGuard + SLM)' : 'V3 — 2-Layer (OPA + SLM)',
+    architecture: isModelReady() ? 'V4 — 3-Layer Hybrid (OPA + SemaProof + SLM)' : 'V3 — 2-Layer (OPA + SLM)',
     threatStore: getThreatStats()
 }));
 server.get('/state', async () => activeSystemState);
 server.get('/v1/threats', async () => ({ threats: getThreats(), stats: getThreatStats() }));
-server.get('/v1/guardians', async () => ({ guardians: GUARDIAN_MODELS, aegisguard: isModelReady() }));
+server.get('/v1/guardians', async () => ({ guardians: GUARDIAN_MODELS, semaproof: isModelReady() }));
 server.get('/v1/metrics', async () => ({
     layers: [
         { id: 'OPA', type: 'Deterministic', latency: '<1ms', rules: 9 },
-        ...(isModelReady() ? [{ id: 'AegisGuard', type: 'Local ONNX Classifier', latency: '30-50ms', categories: 13 }] : []),
+        ...(isModelReady() ? [{ id: 'SemaProof', type: 'Local ONNX Classifier', latency: '30-50ms', categories: 13 }] : []),
         { id: 'SLM', type: 'Probabilistic', models: GUARDIAN_MODELS.length, threshold: '2-of-3', role: isModelReady() ? 'Escalation Only' : 'Primary' }
     ],
     threatStore: getThreatStats(),
@@ -271,18 +271,18 @@ server.post('/v1/execute', async (request, reply) => {
         });
     }
 
-    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Routing to ${isModelReady() ? 'AegisGuard' : 'SLM Quorum'}.`);
+    server.log.info(`[OPA GATE] PASSED in ${opaDecision.evaluationMs}ms. Routing to ${isModelReady() ? 'SemaProof' : 'SLM Quorum'}.`);
 
-    // Layer 2: AegisGuard Local ONNX Classifier (30-50ms)
+    // Layer 2: SemaProof Local ONNX Classifier (30-50ms)
     if (isModelReady()) {
         const classification = await classifyPayload(request.body);
-        server.log.info(`[AEGISGUARD] ${classification.label} (${(classification.confidence * 100).toFixed(1)}%) in ${classification.latencyMs}ms — ${classification.action}`);
+        server.log.info(`[SEMAPROOF] ${classification.label} (${(classification.confidence * 100).toFixed(1)}%) in ${classification.latencyMs}ms — ${classification.action}`);
 
         if (classification.action === 'ALLOW') {
             return reply.status(200).send({
                 status: 'success',
                 request_id: crypto.randomUUID(),
-                layer: 'AEGISGUARD_LOCAL',
+                layer: 'SEMAPROOF_LOCAL',
                 classification: {
                     label: classification.label,
                     confidence: classification.confidence,
@@ -291,15 +291,15 @@ server.post('/v1/execute', async (request, reply) => {
                 },
                 latencyMs: classification.latencyMs,
                 master_signature_hash: classification.signatureHash,
-                message: 'Transaction authorized by AegisGuard (fast path)'
+                message: 'Transaction authorized by SemaProof (fast path)'
             });
         }
 
         if (classification.action === 'BLOCK' && classification.confidence >= 0.95) {
-            logBlockedTransaction(crypto.randomUUID(), request.body, [classification.label], 'AEGISGUARD_LOCAL').catch(console.error);
+            logBlockedTransaction(crypto.randomUUID(), request.body, [classification.label], 'SEMAPROOF_LOCAL').catch(console.error);
             return reply.status(403).send({
                 status: 'rejected',
-                layer: 'AEGISGUARD_LOCAL',
+                layer: 'SEMAPROOF_LOCAL',
                 classification: {
                     label: classification.label,
                     confidence: classification.confidence,
@@ -307,12 +307,12 @@ server.post('/v1/execute', async (request, reply) => {
                     eu_ai_act: classification.eu_ai_act
                 },
                 latencyMs: classification.latencyMs,
-                message: `Transaction blocked by AegisGuard: ${classification.label} (${(classification.confidence * 100).toFixed(1)}%)`
+                message: `Transaction blocked by SemaProof: ${classification.label} (${(classification.confidence * 100).toFixed(1)}%)`
             });
         }
 
         // ESCALATE: Low confidence — fall through to SLM Quorum
-        server.log.info(`[AEGISGUARD] Escalating to SLM Quorum (confidence: ${(classification.confidence * 100).toFixed(1)}%)`);
+        server.log.info(`[SEMAPROOF] Escalating to SLM Quorum (confidence: ${(classification.confidence * 100).toFixed(1)}%)`);
     }
 
     // Layer 3: SLM Quorum Escalation (2-of-3 heterogeneous models)
@@ -326,12 +326,12 @@ async function start() {
         // Warm-boot: load threat signatures from disk
         loadThreatStore();
 
-        // Init AegisGuard ONNX classifier (non-blocking — falls back to SLM quorum if not available)
-        const aegisReady = await initAegisGuard();
-        if (aegisReady) {
-            console.log('🛡️  AegisGuard V4: 3-Layer Hybrid (OPA + AegisGuard + SLM Escalation)');
+        // Init SemaProof ONNX classifier (non-blocking — falls back to SLM quorum if not available)
+        const semaReady = await initSemaProof();
+        if (semaReady) {
+            console.log('🛡️  SemaProof V4: 3-Layer Hybrid (OPA + SemaProof + SLM Escalation)');
         } else {
-            console.log('⚠️  AegisGuard model not found. Running V3: 2-Layer (OPA + SLM Quorum)');
+            console.log('⚠️  SemaProof model not found. Running V3: 2-Layer (OPA + SLM Quorum)');
         }
 
         const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;

@@ -11,6 +11,10 @@ pkg/
 coverage/
 test-results/
 
-# AegisGuard training artifacts
+# SemaProof training artifacts (ignore both old + new directory names)
 training-data/aegisguard-checkpoints/
+training-data/semaproof-checkpoints/
 backend/src/aegisguard-model/model.safetensors
+backend/src/aegisguard-model/model.onnx
+backend/src/semaproof-model/model.safetensors
+backend/src/semaproof-model/model.onnx

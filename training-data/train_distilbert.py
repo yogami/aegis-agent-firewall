@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AegisGuard DistilBERT Training Script
+SemaProof DistilBERT Training Script
 Fine-tunes DistilBERT for 13-class cloud API threat classification.
 Runs on Mac CPU in ~5 minutes. Exports to ONNX.
 """
@@ -14,11 +14,11 @@ from collections import Counter
 
 # ── Load Training Data ──────────────────────────────────────────────────
 print("═══════════════════════════════════════════════════════════")
-print("  🛡️  AEGISGUARD — DistilBERT Classifier Training")
+print("  🛡️  SEMAPROOF — DistilBERT Classifier Training")
 print("═══════════════════════════════════════════════════════════")
 
-DATA_PATH = os.path.join(os.path.dirname(__file__), 'aegisguard_train.jsonl')
-MODEL_OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'backend', 'src', 'aegisguard-model')
+DATA_PATH = os.path.join(os.path.dirname(__file__), 'semaproof_train.jsonl')
+MODEL_OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'backend', 'src', 'semaproof-model')
 
 with open(DATA_PATH) as f:
     data = [json.loads(line) for line in f]
@@ -99,7 +99,7 @@ print("\n── Training ──")
 start_time = time.time()
 
 training_args = TrainingArguments(
-    output_dir='./aegisguard-checkpoints',
+    output_dir='./semaproof-checkpoints',
     num_train_epochs=5,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=32,

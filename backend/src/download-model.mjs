@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Download AegisGuard ONNX model if not present.
+ * Download SemaProof ONNX model if not present.
  * Checks: Railway volume (/data/models) → local model dir → downloads from GitHub Release.
  * For private repos, set GITHUB_TOKEN env var in Railway.
  */
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const VOLUME_DIR = '/data/models';
-const LOCAL_DIR = path.join(__dirname, 'aegisguard-model');
+const LOCAL_DIR = path.join(__dirname, 'semaproof-model');
 const MODEL_FILE = 'model.onnx';
 
 // GitHub Release config for private repos
@@ -24,11 +24,10 @@ const GH_TOKEN = process.env.GITHUB_TOKEN || '';
 function httpGet(url, headers = {}) {
     return new Promise((resolve, reject) => {
         const opts = new URL(url);
-        opts.headers = { 'User-Agent': 'aegisguard-setup', ...headers };
+        opts.headers = { 'User-Agent': 'semaproof-setup', ...headers };
 
         https.get(opts, (res) => {
             if (res.statusCode === 301 || res.statusCode === 302) {
-                // Follow redirects, keep auth header for same host
                 const nextHeaders = res.headers.location?.includes('api.github.com') ? headers : {};
                 resolve(httpGet(res.headers.location, nextHeaders));
                 return;
@@ -42,12 +41,12 @@ function httpGet(url, headers = {}) {
 
 function downloadFile(url, dest, headers = {}) {
     return new Promise((resolve, reject) => {
-        console.log(`[AEGISGUARD SETUP] Downloading to ${dest}...`);
+        console.log(`[SEMAPROOF SETUP] Downloading to ${dest}...`);
         const file = fs.createWriteStream(dest);
 
         const get = (url) => {
             const opts = new URL(url);
-            opts.headers = { 'User-Agent': 'aegisguard-setup', ...headers };
+            opts.headers = { 'User-Agent': 'semaproof-setup', ...headers };
 
             https.get(opts, (res) => {
                 if (res.statusCode === 301 || res.statusCode === 302) {
@@ -62,10 +61,10 @@ function downloadFile(url, dest, headers = {}) {
                 let downloaded = 0;
                 res.on('data', (chunk) => {
                     downloaded += chunk.length;
-                    if (total) process.stdout.write(`\r[AEGISGUARD SETUP] ${((downloaded / total) * 100).toFixed(1)}% (${(downloaded / 1024 / 1024).toFixed(1)} MB)`);
+                    if (total) process.stdout.write(`\r[SEMAPROOF SETUP] ${((downloaded / total) * 100).toFixed(1)}% (${(downloaded / 1024 / 1024).toFixed(1)} MB)`);
                 });
                 res.pipe(file);
-                file.on('finish', () => { file.close(); console.log('\n[AEGISGUARD SETUP] ✅ Download complete.'); resolve(); });
+                file.on('finish', () => { file.close(); console.log('\n[SEMAPROOF SETUP] ✅ Download complete.'); resolve(); });
             }).on('error', reject);
         };
         get(url);
@@ -85,7 +84,7 @@ async function getAssetUrl() {
     const asset = release.assets?.find(a => a.name === MODEL_FILE);
     if (!asset) throw new Error(`Asset ${MODEL_FILE} not found in release ${GH_TAG}`);
 
-    console.log(`[AEGISGUARD SETUP] Found asset: ${asset.name} (${(asset.size / 1024 / 1024).toFixed(1)} MB)`);
+    console.log(`[SEMAPROOF SETUP] Found asset: ${asset.name} (${(asset.size / 1024 / 1024).toFixed(1)} MB)`);
     return { url: asset.url, size: asset.size };
 }
 
@@ -94,7 +93,7 @@ async function main() {
     if (fs.existsSync(path.join(VOLUME_DIR, MODEL_FILE))) {
         const size = fs.statSync(path.join(VOLUME_DIR, MODEL_FILE)).size;
         if (size > 10000) {
-            console.log(`[AEGISGUARD SETUP] ✅ Model found in volume (${(size / 1024 / 1024).toFixed(1)} MB)`);
+            console.log(`[SEMAPROOF SETUP] ✅ Model found in volume (${(size / 1024 / 1024).toFixed(1)} MB)`);
             return;
         }
     }
@@ -104,9 +103,9 @@ async function main() {
     if (fs.existsSync(localModel)) {
         const size = fs.statSync(localModel).size;
         if (size > 10000) {
-            console.log(`[AEGISGUARD SETUP] ✅ Model found locally (${(size / 1024 / 1024).toFixed(1)} MB)`);
+            console.log(`[SEMAPROOF SETUP] ✅ Model found locally (${(size / 1024 / 1024).toFixed(1)} MB)`);
             if (fs.existsSync(VOLUME_DIR)) {
-                console.log(`[AEGISGUARD SETUP] Copying to volume...`);
+                console.log(`[SEMAPROOF SETUP] Copying to volume...`);
                 fs.copyFileSync(localModel, path.join(VOLUME_DIR, MODEL_FILE));
                 for (const f of ['label_map.json', 'tokenizer.json', 'tokenizer_config.json', 'vocab.txt', 'config.json', 'special_tokens_map.json']) {
                     const src = path.join(LOCAL_DIR, f);
@@ -115,13 +114,13 @@ async function main() {
             }
             return;
         }
-        console.log(`[AEGISGUARD SETUP] ⚠️ Local model is LFS pointer (${size} bytes). Downloading...`);
+        console.log(`[SEMAPROOF SETUP] ⚠️ Local model is LFS pointer (${size} bytes). Downloading...`);
     }
 
     // Check 3: Download from GitHub Release
     if (!GH_TOKEN) {
-        console.warn(`[AEGISGUARD SETUP] ⚠️ GITHUB_TOKEN not set. Cannot download from private repo.`);
-        console.warn(`[AEGISGUARD SETUP]    Set GITHUB_TOKEN in Railway variables.`);
+        console.warn(`[SEMAPROOF SETUP] ⚠️ GITHUB_TOKEN not set. Cannot download from private repo.`);
+        console.warn(`[SEMAPROOF SETUP]    Set GITHUB_TOKEN in Railway variables.`);
         return;
     }
 
@@ -130,13 +129,11 @@ async function main() {
 
     try {
         const { url } = await getAssetUrl();
-        // Download using API URL with Accept header for binary
         await downloadFile(url, path.join(targetDir, MODEL_FILE), {
             'Authorization': `token ${GH_TOKEN}`,
             'Accept': 'application/octet-stream'
         });
 
-        // Copy tokenizer files from local to target
         if (targetDir !== LOCAL_DIR && fs.existsSync(LOCAL_DIR)) {
             for (const f of ['label_map.json', 'tokenizer.json', 'tokenizer_config.json', 'vocab.txt', 'config.json', 'special_tokens_map.json']) {
                 const src = path.join(LOCAL_DIR, f);
@@ -144,8 +141,8 @@ async function main() {
             }
         }
     } catch (e) {
-        console.warn(`[AEGISGUARD SETUP] ⚠️ Download failed: ${e.message}`);
-        console.warn(`[AEGISGUARD SETUP]    AegisGuard will run in fallback mode (SLM Quorum).`);
+        console.warn(`[SEMAPROOF SETUP] ⚠️ Download failed: ${e.message}`);
+        console.warn(`[SEMAPROOF SETUP]    SemaProof will run in fallback mode (SLM Quorum).`);
     }
 }
 

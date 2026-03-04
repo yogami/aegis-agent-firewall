@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * AegisGuard Training Data Augmentation Pipeline
+ * SemaProof Training Data Augmentation Pipeline
  * Takes 128 seed templates → generates ~50K labeled JSONL examples
  * Uses Gemini 2.5 Flash (free via Antigravity) for augmentation
  */
@@ -17,7 +17,7 @@ const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemi
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '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';
 
 const OUTPUT_DIR = path.dirname(new URL(import.meta.url).pathname);
-const OUTPUT_FILE = path.join(OUTPUT_DIR, 'aegisguard_train.jsonl');
+const OUTPUT_FILE = path.join(OUTPUT_DIR, 'semaproof_train.jsonl');
 const VARIANTS_PER_SEED = 50;  // 128 seeds × 50 = 6,400 via LLM + originals
 
 const AUGMENTATION_PROMPT = (seed, taxonomy) => `You are a cybersecurity dataset generator. Generate ${VARIANTS_PER_SEED} realistic variants of this cloud API attack payload.
@@ -49,7 +49,7 @@ async function augmentWithOpenRouter(prompt) {
                 'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
                 'Content-Type': 'application/json',
                 'HTTP-Referer': 'https://semaproof.io',
-                'X-Title': 'AegisGuard Training Data'
+                'X-Title': 'SemaProof Training Data'
             },
             body: JSON.stringify({
                 model: 'qwen/qwen-2.5-7b-instruct',  // Cheapest good model
@@ -109,7 +109,7 @@ async function generateRuleBasedVariants(seed) {
 
 async function main() {
     console.log('═══════════════════════════════════════════════════════════');
-    console.log('  🧬 AEGISGUARD TRAINING DATA AUGMENTATION PIPELINE');
+    console.log('  🧬 SEMAPROOF TRAINING DATA AUGMENTATION PIPELINE');
     console.log('═══════════════════════════════════════════════════════════');
     console.log(`  Seeds: ${SEEDS.length}`);
     console.log(`  Target: ~${SEEDS.length * (VARIANTS_PER_SEED + 10 + 1)} examples`);

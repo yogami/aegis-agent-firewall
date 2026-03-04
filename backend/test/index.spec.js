@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
 import { server } from '../src/index.js';
 
-describe('Aegis API Gateway (index.js)', () => {
+describe('SemaProof API Gateway (index.js)', () => {
     afterAll(async () => {
         await server.close();
     });
