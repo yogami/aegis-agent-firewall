@@ -1,0 +1,41 @@
+# SemaProof Sidecar — Docker Compose
+# Envoy proxy + SemaProof ext_authz sidecar + sample upstream
+
+services:
+
+  # ── Envoy Proxy (front door) ────────────────────────
+  envoy:
+    image: envoyproxy/envoy:v1.31-latest
+    ports:
+      - "8080:8080" # Inbound traffic
+      - "9901:9901" # Envoy admin
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml:ro
+    depends_on:
+      semaproof:
+        condition: service_healthy
+
+  # ── SemaProof ext_authz Sidecar ─────────────────────
+  semaproof:
+    build:
+      context: .
+      dockerfile: Dockerfile.sidecar
+    ports:
+      - "9001:9001"
+    environment:
+      - NODE_ENV=production
+      - PORT=9001
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:9001/health" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ── Sample Upstream Service (echo server) ───────────
+  upstream:
+    image: hashicorp/http-echo
+    command: [ "-text", '{"status":"ok","service":"upstream","message":"Request passed through SemaProof"}' ]
+    ports:
+      - "5678:5678"

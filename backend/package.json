@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Aegis Agent Firewall Backend API",
+  "description": "SemaProof — Agentic Threat Detection Engine (Envoy ext_authz sidecar)",
   "main": "src/index.js",
   "type": "module",
   "engines": {
