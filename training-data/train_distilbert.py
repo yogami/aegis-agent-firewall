@@ -17,7 +17,7 @@ print("════════════════════════�
 print("  🛡️  SEMAPROOF — DistilBERT Classifier Training")
 print("═══════════════════════════════════════════════════════════")
 
-DATA_PATH = os.path.join(os.path.dirname(__file__), 'semaproof_train.jsonl')
+DATA_PATH = os.environ.get('DATA_PATH', os.path.join(os.path.dirname(__file__), 'semaproof_train.jsonl'))
 MODEL_OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'backend', 'src', 'semaproof-model')
 
 with open(DATA_PATH) as f:
