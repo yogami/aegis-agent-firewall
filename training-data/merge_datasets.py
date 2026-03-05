@@ -25,6 +25,9 @@ SOURCES = [
     'semaproof_train_50k.jsonl',
     'semaproof_public_datasets.jsonl',
     'semaproof_synthetic.jsonl',
+    'semaproof_huggingface.jsonl',
+    'semaproof_llm_augmented.jsonl',
+    'semaproof_llm_augmented_gemini.jsonl',
 ]
 
 

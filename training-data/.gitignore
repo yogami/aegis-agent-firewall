@@ -3,3 +3,4 @@ semaproof_unified.jsonl
 semaproof_synthetic.jsonl
 semaproof_public_datasets.jsonl
 semaproof-50k-checkpoints/
+semaproof_llm_augmented_gemini.jsonl
