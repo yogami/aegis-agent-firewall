@@ -56,9 +56,22 @@ function checkRequiredFields(payload, start) {
     return null;
 }
 
+/** Normalize an endpoint to defeat evasion techniques */
+function normalizeEndpoint(raw) {
+    let ep = raw;
+    // 1. URL-decode percent-encoded chars
+    try { ep = decodeURIComponent(ep); } catch { /* keep original */ }
+    // 2. Strip path traversal sequences
+    ep = ep.replace(/\.\.\//g, '');
+    // 3. Replace common unicode homoglyphs (Cyrillic/Greek → Latin)
+    const HOMOGLYPHS = { '\u043E': 'o', '\u0430': 'a', '\u0435': 'e', '\u0440': 'p', '\u0441': 'c', '\u03BF': 'o', '\u03B1': 'a' };
+    ep = ep.replace(/[\u0430\u0435\u043E\u0440\u0441\u03BF\u03B1]/g, ch => HOMOGLYPHS[ch] || ch);
+    return ep.toLowerCase();
+}
+
 /** Rule 3: Blocked endpoints */
 function checkBlockedEndpoint(payload, start) {
-    const normalizedEndpoint = payload.endpoint.toLowerCase();
+    const normalizedEndpoint = normalizeEndpoint(payload.endpoint);
     const isBlocked = BLOCKED_PATTERNS.some(regex => regex.test(normalizedEndpoint));
     if (isBlocked) {
         return deny('BLOCKED_ENDPOINT', `Endpoint ${payload.endpoint} is permanently blocked by sovereign policy.`, start);
